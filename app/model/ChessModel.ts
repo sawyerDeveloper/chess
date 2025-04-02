@@ -13,6 +13,7 @@ export default class ChessModel {
   }
 
   public validateMove(start: string, end: string): Boolean {
+    this.gridModel.updateGrid(start, end)
     return false;
   }
 }

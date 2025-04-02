@@ -5,10 +5,18 @@ import GridView from './GridView';
 
 export default function Chess() {
   const [model] = useState(new ChessModel());
-
+  const [pressedZone, setPressedZone] = useState()
+  const onPress =(zone) => {
+    if(!pressedZone){
+      setPressedZone(zone)
+    } else{
+      model.validateMove(pressedZone, zone)
+      setPressedZone(undefined)
+    }
+  }
   return (
     <View style={styles.container}>
-      <GridView grid={model.getGrid()} />
+      <GridView onPress={onPress} grid={model.getGrid()} />
     </View>
   );
 }

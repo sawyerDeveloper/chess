@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 import PieceView, { Piece } from './PieceView';
-import { letters } from '../model/GridModel';
 
 export enum LandingZoneColors {
   WHITE = 'white',
@@ -17,12 +16,15 @@ export default function LandingZone({
   gridCoordinates,
   piece,
   color,
+  onPress,
+  id
 }: LandingZoneProps) {
   return (
-    <View style={[styles.container, {backgroundColor: color}]}>
-      {piece.type && <PieceView piece={piece} />}
-      <Text>{letters[gridCoordinates[0] - 1] +''+gridCoordinates[1]}</Text>
-    </View>
+    
+      <Pressable style={[styles.container, {backgroundColor: color}]} onPress={() => onPress(id)}>
+      {piece.type && <PieceView onPress={onPress} piece={piece} />}
+      <Text>{id}</Text>
+    </Pressable>
   );
 }
 
