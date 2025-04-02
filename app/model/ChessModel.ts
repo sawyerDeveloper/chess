@@ -1,7 +1,7 @@
 import GridModel from './GridModel';
 
 export default class ChessModel {
-  gridModel: GridModel;
+  private gridModel: GridModel;
   constructor() {
     this.gridModel = new GridModel();
     this.gridModel.initGrid()
