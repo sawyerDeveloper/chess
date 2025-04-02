@@ -20,7 +20,7 @@ export default function LandingZone({
 }: LandingZoneProps) {
   return (
     <View style={[styles.container, {backgroundColor: color}]}>
-      {piece && <PieceView piece={piece} />}
+      {piece.type && <PieceView piece={piece} />}
       <Text>{letters[gridCoordinates[0] - 1] +''+gridCoordinates[1]}</Text>
     </View>
   );
@@ -31,5 +31,6 @@ const styles = StyleSheet.create({
     flex:1,
     width: '100%',
     height: '100%',
+    borderWidth: .5
   },
 });

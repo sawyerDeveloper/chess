@@ -9,7 +9,7 @@ interface GridViewProps {
 }
 
 export default function GridView({ grid }: GridViewProps) {
-  
+
   const layoutZones = (column: number) => {
     let views = [];
     for (let row: number = 1; row < 9; row++) {
@@ -22,7 +22,7 @@ export default function GridView({ grid }: GridViewProps) {
           piece={zone && zone.piece}
           gridCoordinates={[row, column]}
           color={
-            column % 2 == 0 ? LandingZoneColors.WHITE : LandingZoneColors.BLACK
+            row % 2 == (column % 2) ? LandingZoneColors.WHITE : LandingZoneColors.BLACK
           }
         />
       );

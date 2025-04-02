@@ -38,8 +38,10 @@ export default function PieceView({ piece }: PieceViewProps) {
 const styles = StyleSheet.create({
   container: {
     flex:1,
+    alignItems: 'center',
     margin: 2,
     padding: 5,
-    borderWidth: 1
+    borderWidth: 1,
+    borderRadius: 50
   }
 })
