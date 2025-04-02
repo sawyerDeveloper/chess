@@ -10,8 +10,7 @@ export default class GridModel {
   public initGrid(startingArray: GridCell[] = []) {
     const pieceArray =
       startingArray.length > 0 ? startingArray : STARTING_ARRAY;
-    const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
-    for (let file: number = 1; file < letters.length; file++) {
+    for (let file: number = 1; file < letters.length + 1; file++) {
       for (let rank: number = 1; rank < 9; rank++) {
         const notation = letters[file - 1] + rank;
         const piece: Piece = pieceArray.find(
@@ -43,6 +42,7 @@ export default class GridModel {
   }
 }
 
+export const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 export type GridCell = {
   x: Number;
   y: Number;

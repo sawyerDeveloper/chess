@@ -1,5 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 export enum PieceType {
   KING = 'King',
@@ -17,8 +17,8 @@ export enum PieceColor {
 }
 
 export type Piece = {
-  type: PieceType;
-  color: PieceColor;
+  type: PieceType | null | undefined;
+  color: PieceColor | null | undefined;
 };
 
 interface PieceViewProps {
@@ -28,9 +28,18 @@ interface PieceViewProps {
 export default function PieceView({ piece }: PieceViewProps) {
   const { type, color } = piece;
   return (
-    <View>
-      <FontAwesome5 name='chess' size={25} color='black' />
+    <View style={styles.container}>
+      <FontAwesome5 name='chess' size={20} color={color} />
       <Text>{type + ' ' + color}</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    margin: 2,
+    padding: 5,
+    borderWidth: 1
+  }
+})
