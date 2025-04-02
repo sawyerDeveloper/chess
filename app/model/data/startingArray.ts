@@ -58,7 +58,7 @@ export const STARTING_ARRAY = [
  {id:'g7', type: PieceType.PAWN, color: PieceColor.BLACK },
  {id:'h7', type: PieceType.PAWN, color: PieceColor.BLACK },
  {id:'a8', type: PieceType.ROOK, color: PieceColor.BLACK },
- {id:'b8', type: PieceType.KNIGHT, color: PieceColor.WHITE },
+ {id:'b8', type: PieceType.KNIGHT, color: PieceColor.BLACK },
  {id:'c8', type: PieceType.BISHOP, color: PieceColor.BLACK },
  {id:'d8', type: PieceType.QUEEN, color: PieceColor.BLACK },
  {id:'e8', type: PieceType.KING, color: PieceColor.BLACK },
