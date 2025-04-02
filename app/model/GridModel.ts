@@ -40,6 +40,13 @@ export default class GridModel {
   public getGrid() {
     return this.grid;
   }
+
+  public getZone(id: string): GridCell | undefined {
+    const zone = this.grid.find((zone) => zone.id === id);
+    if (zone) {
+      return zone;
+    }
+  }
 }
 
 export const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];

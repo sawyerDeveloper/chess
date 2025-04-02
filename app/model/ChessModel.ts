@@ -1,4 +1,4 @@
-import GridModel from './GridModel';
+import GridModel, { GridCell } from './GridModel';
 
 export default class ChessModel {
   private gridModel: GridModel;
@@ -12,7 +12,12 @@ export default class ChessModel {
     return this.gridModel.getGrid()
   }
 
+  public getZone(id : string) : GridCell | undefined {
+    return this.gridModel.getZone(id)
+  }
+
   public validateMove(start: string, end: string): Boolean {
+    this.gridModel.updateGrid(start, end)
     return false;
   }
 }
