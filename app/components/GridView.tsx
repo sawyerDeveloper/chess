@@ -46,7 +46,7 @@ export default function GridView({ grid }: GridViewProps) {
         </Column>
       );
     }
-    return views;
+    return views.reverse();
   };
   return <View style={styles.container}>{layoutGrid()}</View>;
 }
