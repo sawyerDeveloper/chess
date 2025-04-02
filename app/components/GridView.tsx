@@ -3,35 +3,33 @@ import LandingZone, { LandingZoneColors } from './LandingZone';
 import Row from './ui/Row';
 import Column from './ui/Column';
 import { GridCell, letters } from '../model/GridModel';
-import { useContext } from 'react';
-import { ZoneContext } from './context/ZoneContext';
 
 interface GridViewProps {
   grid: GridCell[];
 }
 
 export default function GridView({ grid }: GridViewProps) {
-  const zoneContext = useContext(ZoneContext)
   const layoutZones = (column: number) => {
     let views = [];
     for (let row: number = 1; row < 9; row++) {
       const zone = grid.find((zone) => {
         return zone.id === letters[column - 1] + row;
       });
-      views.push(
-        <LandingZone
-          onPress={zoneContext.onPress}
-          id={zone && zone.id}
-          key={zone && zone.id}
-          piece={zone && zone.piece}
-          gridCoordinates={[row, column]}
-          color={
-            row % 2 == column % 2
-              ? LandingZoneColors.WHITE
-              : LandingZoneColors.BLACK
-          }
-        />
-      );
+      if (zone) {
+        views.push(
+          <LandingZone
+            id={zone && zone.id}
+            key={zone && zone.id}
+            piece={zone && zone.piece}
+            gridCoordinates={[row, column]}
+            color={
+              row % 2 == column % 2
+                ? LandingZoneColors.WHITE
+                : LandingZoneColors.BLACK
+            }
+          />
+        );
+      }
     }
     return views;
   };
