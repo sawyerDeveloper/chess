@@ -17,11 +17,13 @@ export default function LandingZone({
   piece,
   color,
   onPress,
-  id
+  id,
 }: LandingZoneProps) {
   return (
-    
-      <Pressable style={[styles.container, {backgroundColor: color}]} onPress={() => onPress(id)}>
+    <Pressable
+      style={[styles.container, { backgroundColor: color }]}
+      onPress={() => onPress(id)}
+    >
       {piece.type && <PieceView onPress={onPress} piece={piece} />}
       <Text>{id}</Text>
     </Pressable>
@@ -30,9 +32,9 @@ export default function LandingZone({
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     width: '100%',
     height: '100%',
-    borderWidth: .5
+    borderWidth: 0.5,
   },
 });
