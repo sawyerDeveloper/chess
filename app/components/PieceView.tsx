@@ -23,16 +23,15 @@ export type Piece = {
 
 interface PieceViewProps {
   piece: Piece;
+  active: Boolean;
 }
 
-export default function PieceView({ piece }: PieceViewProps) {
+export default function PieceView({ piece, active }: PieceViewProps) {
   const { type, color } = piece;
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { borderColor: active ? 'red' : 'black' }]}>
       <FontAwesome5 name='chess' size={20} color={color} />
-      <Text style={[styles.label, { color: color as ColorValue }]}>
-        {type}
-      </Text>
+      <Text style={[styles.label, { color: color as ColorValue }]}>{type}</Text>
     </View>
   );
 }
