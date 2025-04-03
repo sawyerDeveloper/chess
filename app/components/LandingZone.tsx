@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
   },
   label: {
-    color: 'darkgrey'
+    color: 'darkgrey',
+    paddingLeft: 2
   }
 });
