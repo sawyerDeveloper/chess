@@ -34,12 +34,12 @@ export default function PieceView({ piece, active }: PieceViewProps) {
         style={[
           {
             textShadowColor: color === 'white' ? 'black' : 'white',
-            textShadowRadius: 1,
-            textShadowOffset: { width: 0.5, height: 0.5 },
+            textShadowRadius: active ? 2 : 1,
+            textShadowOffset: { width: active ? 1.5 : 1, height: active ? 1.5 : 1 },
           },
         ]}
         name={'chess-' + piece.type?.toLowerCase()}
-        size={active ? 65 : 45}
+        size={active ? 70 : 45}
         color={color}
       />
     </View>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 2,
-    paddingBottom: 10,
+    paddingBottom: 15,
     minHeight: 60,
     minWidth: 80,
   },
