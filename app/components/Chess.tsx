@@ -1,28 +1,27 @@
 import { StyleSheet, View } from 'react-native';
-import { useState } from 'react';
-import ChessModel from '../model/ChessModel';
 import GridView from './GridView';
 import { ZoneContextProvider } from './context/ZoneContextProvider';
 
 export default function Chess() {
-  const [model] = useState(new ChessModel());
-
   return (
-    <View style={styles.container}>
-      <ZoneContextProvider model={model}>
-        <GridView grid={model.getGrid()} />
-      </ZoneContextProvider>
-    </View>
+    <ZoneContextProvider>
+      <View style={styles.container}>
+        <GridView />
+      </View>
+    </ZoneContextProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
     height: '100%',
-    paddingLeft: 100,
-    paddingRight: 100,
-    paddingTop: 30
+    paddingLeft: 50,
+    paddingRight: 50,
+    paddingTop: 30,
   },
 });
