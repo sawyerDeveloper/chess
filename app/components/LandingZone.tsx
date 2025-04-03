@@ -27,7 +27,7 @@ export default function LandingZone({
       style={[styles.container, { backgroundColor: color }]}
       onPress={() => zoneContext.onPress(id)}
     >
-      <Text>{id}</Text>
+      <Text style={styles.label}>{id}</Text>
       {piece.type && (
         <PieceView active={id === zoneContext.getPressedZone()} piece={piece} />
       )}
@@ -42,4 +42,7 @@ const styles = StyleSheet.create({
     height: '100%',
     borderWidth: 0.5,
   },
+  label: {
+    color: 'darkgrey'
+  }
 });

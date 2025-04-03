@@ -29,9 +29,12 @@ interface PieceViewProps {
 export default function PieceView({ piece, active }: PieceViewProps) {
   const { type, color } = piece;
   return (
-    <View style={[styles.container, { borderColor: active ? 'red' : 'black' }]}>
-      <FontAwesome5 name='chess' size={20} color={color} />
-      <Text style={[styles.label, { color: color as ColorValue }]}>{type}</Text>
+    <View style={styles.container}>
+      <FontAwesome5
+        name={'chess-' + piece.type?.toLowerCase()}
+        size={active ? 65 : 45}
+        color={color}
+      />
     </View>
   );
 }
@@ -43,13 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 2,
     padding: 5,
-    borderWidth: 1,
-    borderRadius: 50,
     minHeight: 60,
     minWidth: 80
-  },
-  label: {
-    textAlign: 'center',
-    fontSize: 12,
-  },
+  }
 });

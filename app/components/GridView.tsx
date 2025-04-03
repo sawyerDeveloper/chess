@@ -35,7 +35,6 @@ export default function GridView() {
 
   const layoutGrid = () => {
     let views = [];
-
     for (var column: number = 1; column < 9; column++) {
       views.push(
         <Row key={column + column}>
