@@ -28,8 +28,12 @@ export default function LandingZone({
       onPress={() => zoneContext.onPress(id)}
     >
       <Text style={styles.label}>{id}</Text>
-      {piece.type && (
-        <PieceView active={id === zoneContext.getPressedZone()} piece={piece} />
+      {piece.type && piece.color && (
+        <PieceView
+          active={id === zoneContext.getPressedZone()}
+          color={piece.color}
+          type={piece.type}
+        />
       )}
     </Pressable>
   );
@@ -44,6 +48,6 @@ const styles = StyleSheet.create({
   },
   label: {
     color: 'darkgrey',
-    paddingLeft: 2
-  }
+    paddingLeft: 2,
+  },
 });

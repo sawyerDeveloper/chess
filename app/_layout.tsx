@@ -11,7 +11,6 @@ export default function RootLayout() {
         }}
         name='index'
       />
-      ;
     </Stack>
   );
 }
