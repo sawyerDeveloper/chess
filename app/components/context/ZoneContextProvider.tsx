@@ -13,6 +13,11 @@ export const ZoneContextProvider = ({
 }: ZoneContextProviderProps) => {
   const [pressedZone, setPressedZone] = useState('');
   const onPress = (zone: string) => {
+    if (zone === pressedZone) {
+      setPressedZone('');
+      return;
+    }
+
     if (!pressedZone && model.getZone(zone)?.piece.type) {
       setPressedZone(zone);
     } else {

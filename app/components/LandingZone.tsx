@@ -21,14 +21,16 @@ export default function LandingZone({
   color,
   id,
 }: LandingZoneProps) {
-  const zoneContext = useContext(ZoneContext)
+  const zoneContext = useContext(ZoneContext);
   return (
     <Pressable
       style={[styles.container, { backgroundColor: color }]}
       onPress={() => zoneContext.onPress(id)}
-      >
+    >
       <Text>{id}</Text>
-      {piece.type && <PieceView piece={piece} />}
+      {piece.type && (
+        <PieceView active={id === zoneContext.getPressedZone()} piece={piece} />
+      )}
     </Pressable>
   );
 }
