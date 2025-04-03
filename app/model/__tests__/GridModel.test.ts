@@ -1,5 +1,5 @@
 import GridModel from '../GridModel';
-import { startingGrid } from '../mocks/startingGrid';
+import startingGrid from '../mocks/startingGrid';
 describe('GridModel', () => {
   describe('initGrid', () => {
     test('should initialize a grid that matches a static matrix of starting pieces', () => {

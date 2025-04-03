@@ -4,7 +4,7 @@ import Row from './ui/Row';
 import Column from './ui/Column';
 import { letters } from '../model/GridModel';
 import { useContext } from 'react';
-import { ZoneContext } from './context/ZoneContext';
+import ZoneContext from './context/ZoneContext';
 
 export default function GridView() {
   const { model } = useContext(ZoneContext);

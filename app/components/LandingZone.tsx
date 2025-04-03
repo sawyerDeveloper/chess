@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
 import PieceView, { Piece } from './PieceView';
 import { useContext } from 'react';
-import { ZoneContext } from './context/ZoneContext';
+import ZoneContext from './context/ZoneContext';
 
 export enum LandingZoneColors {
   WHITE = 'lightgrey',

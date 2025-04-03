@@ -1,6 +1,6 @@
 import { PieceType, PieceColor } from "@/app/components/PieceView";
 
-export const STARTING_ARRAY = [
+const STARTING_ARRAY = [
  {id:'a1', type: PieceType.ROOK, color: PieceColor.WHITE },
  {id:'b1', type: PieceType.KNIGHT, color: PieceColor.WHITE },
  {id:'c1', type: PieceType.BISHOP, color: PieceColor.WHITE },
@@ -66,3 +66,5 @@ export const STARTING_ARRAY = [
  {id:'g8', type: PieceType.KNIGHT, color: PieceColor.BLACK },
  {id:'h8', type: PieceType.ROOK, color: PieceColor.BLACK }
 ];
+
+export default STARTING_ARRAY

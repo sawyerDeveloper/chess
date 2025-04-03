@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import { ZoneContext } from './ZoneContext';
+import ZoneContext from './ZoneContext';
 import ChessModel from '@/app/model/ChessModel';
 
 interface ZoneContextProviderProps {
@@ -7,7 +7,7 @@ interface ZoneContextProviderProps {
   model: ChessModel
 }
 
-export const ZoneContextProvider = ({
+const ZoneContextProvider = ({
   children,
   model
 }: ZoneContextProviderProps) => {
@@ -36,3 +36,4 @@ export const ZoneContextProvider = ({
     </ZoneContext.Provider>
   );
 };
+export default ZoneContextProvider
