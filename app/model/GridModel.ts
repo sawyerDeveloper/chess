@@ -29,6 +29,7 @@ export default class GridModel {
   public updateGrid(start: string, end: string) {
     const startZone = this.grid.find((zone) => zone.id === start);
     const endZone = this.grid.find((zone) => zone.id === end);
+    //  TODO: Create a single value change for piece
     if (endZone?.piece && startZone?.piece) {
       endZone.piece.color = startZone.piece.color;
       endZone.piece.type = startZone.piece.type;
@@ -49,7 +50,7 @@ export default class GridModel {
   }
 }
 
-export const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 export type GridCell = {
   x: Number;
   y: Number;
