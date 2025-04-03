@@ -4,13 +4,12 @@ import ChessModel from '@/app/model/ChessModel';
 
 interface ZoneContextProviderProps {
   children: ReactNode | ReactNode[];
-  model: ChessModel;
 }
 
 export const ZoneContextProvider = ({
   children,
-  model,
 }: ZoneContextProviderProps) => {
+  const [model] = useState(new ChessModel());
   const [pressedZone, setPressedZone] = useState('');
   const onPress = (zone: string) => {
     if (zone === pressedZone) {
@@ -31,7 +30,7 @@ export const ZoneContextProvider = ({
   };
 
   return (
-    <ZoneContext.Provider value={{ onPress, getPressedZone }}>
+    <ZoneContext.Provider value={{ onPress, getPressedZone, model }}>
       {children}
     </ZoneContext.Provider>
   );

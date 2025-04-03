@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 50,
     minHeight: 60,
+    minWidth: 80
   },
   label: {
     textAlign: 'center',
