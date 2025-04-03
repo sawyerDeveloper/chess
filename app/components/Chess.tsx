@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingLeft: 50,
     paddingRight: 50,
-    paddingTop: 30,
+    paddingTop: 10,
     paddingBottom: 30,
-    minHeight:700,
-    maxHeight:700
+    minHeight:720,
+    maxHeight:720
   },
 });

@@ -31,6 +31,13 @@ export default function PieceView({ piece, active }: PieceViewProps) {
   return (
     <View style={styles.container}>
       <FontAwesome5
+        style={[
+          {
+            textShadowColor: color === 'white' ? 'black' : 'white',
+            textShadowRadius: 1,
+            textShadowOffset: { width: 0.5, height: 0.5 },
+          },
+        ]}
         name={'chess-' + piece.type?.toLowerCase()}
         size={active ? 65 : 45}
         color={color}
@@ -45,8 +52,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 2,
-    padding: 5,
+    paddingBottom: 10,
     minHeight: 60,
-    minWidth: 80
-  }
+    minWidth: 80,
+  },
 });
