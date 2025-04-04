@@ -1,14 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { ColorValue, StyleSheet, Text, View } from 'react-native';
+import { memo, useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
+import ZoneContext from './context/ZoneContext';
 
 export enum PieceType {
-  KING = 'King',
-  QUEEN = 'Queen',
-  BISHOP = 'Bishop',
-  KNIGHT = 'Knight',
-  ROOK = 'Rook',
-  PAWN = 'Pawn',
-  EMPTY = 'Empty',
+  KING = 'king',
+  QUEEN = 'queen',
+  BISHOP = 'bishop',
+  KNIGHT = 'knight',
+  ROOK = 'rook',
+  PAWN = 'pawn',
 }
 
 export enum PieceColor {
@@ -22,16 +23,30 @@ export type Piece = {
 };
 
 interface PieceViewProps {
-  piece: Piece;
-  active: Boolean;
+  id: string;
 }
 
-export default function PieceView({ piece, active }: PieceViewProps) {
-  const { type, color } = piece;
+function PieceView({ id }: PieceViewProps) {
+  const { model, getPressedZone } = useContext(ZoneContext);
+  const piece = model.getZone(id)?.piece;
+  const active = getPressedZone() === id;
   return (
-    <View style={[styles.container, { borderColor: active ? 'red' : 'black' }]}>
-      <FontAwesome5 name='chess' size={20} color={color} />
-      <Text style={[styles.label, { color: color as ColorValue }]}>{type}</Text>
+    <View style={styles.container}>
+      <FontAwesome5
+        style={[
+          {
+            textShadowColor: piece?.color === 'white' ? 'black' : 'white',
+            textShadowRadius: active ? 2 : 1,
+            textShadowOffset: {
+              width: active ? 1.5 : 1,
+              height: active ? 1.5 : 1,
+            },
+          },
+        ]}
+        name={'chess-' + piece?.type}
+        size={active ? 70 : 45}
+        color={piece?.color}
+      />
     </View>
   );
 }
@@ -42,14 +57,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 2,
-    padding: 5,
-    borderWidth: 1,
-    borderRadius: 50,
+    paddingBottom: 15,
     minHeight: 60,
-    minWidth: 80
-  },
-  label: {
-    textAlign: 'center',
-    fontSize: 12,
+    minWidth: 80,
   },
 });
+
+export default memo(PieceView);

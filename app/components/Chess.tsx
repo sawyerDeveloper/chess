@@ -1,10 +1,11 @@
 import { StyleSheet, View } from 'react-native';
 import GridView from './GridView';
-import { ZoneContextProvider } from './context/ZoneContextProvider';
+import ZoneContextProvider from './context/ZoneContextProvider';
+import ChessModel from '../model/ChessModel';
 
 export default function Chess() {
   return (
-    <ZoneContextProvider>
+    <ZoneContextProvider model={new ChessModel()}>
       <View style={styles.container}>
         <GridView />
       </View>
@@ -22,6 +23,9 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingLeft: 50,
     paddingRight: 50,
-    paddingTop: 30,
+    paddingTop: 10,
+    paddingBottom: 30,
+    minHeight:720,
+    maxHeight:720
   },
 });

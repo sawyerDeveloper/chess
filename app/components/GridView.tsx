@@ -4,7 +4,7 @@ import Row from './ui/Row';
 import Column from './ui/Column';
 import { letters } from '../model/GridModel';
 import { useContext } from 'react';
-import { ZoneContext } from './context/ZoneContext';
+import ZoneContext from './context/ZoneContext';
 
 export default function GridView() {
   const { model } = useContext(ZoneContext);
@@ -17,9 +17,9 @@ export default function GridView() {
       if (zone) {
         views.push(
           <LandingZone
-            id={zone && zone.id}
-            key={zone && zone.id}
-            piece={zone && zone.piece}
+            id={zone.id}
+            key={zone.id}
+            piece={zone.piece}
             gridCoordinates={[row, column]}
             color={
               row % 2 == column % 2
@@ -35,7 +35,6 @@ export default function GridView() {
 
   const layoutGrid = () => {
     let views = [];
-
     for (var column: number = 1; column < 9; column++) {
       views.push(
         <Row key={column + column}>

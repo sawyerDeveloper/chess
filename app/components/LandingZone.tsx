@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
-import PieceView, { Piece } from './PieceView';
-import { useContext } from 'react';
-import { ZoneContext } from './context/ZoneContext';
+import PieceView from './PieceView';
+import { memo, useContext } from 'react';
+import ZoneContext from './context/ZoneContext';
 
 export enum LandingZoneColors {
   WHITE = 'lightgrey',
@@ -10,26 +10,28 @@ export enum LandingZoneColors {
 
 interface LandingZoneProps {
   gridCoordinates: [number, number];
-  piece: Piece;
   color: LandingZoneColors;
   id: string;
 }
 
-export default function LandingZone({
+function LandingZone({
   gridCoordinates,
-  piece,
   color,
   id,
 }: LandingZoneProps) {
   const zoneContext = useContext(ZoneContext);
+  const piece = zoneContext.model.getZone(id)?.piece;
+
   return (
     <Pressable
       style={[styles.container, { backgroundColor: color }]}
       onPress={() => zoneContext.onPress(id)}
     >
-      <Text>{id}</Text>
-      {piece.type && (
-        <PieceView active={id === zoneContext.getPressedZone()} piece={piece} />
+      <Text style={styles.label}>{id}</Text>
+      {piece?.type && (
+        <PieceView
+          id={id}
+        />
       )}
     </Pressable>
   );
@@ -42,4 +44,10 @@ const styles = StyleSheet.create({
     height: '100%',
     borderWidth: 0.5,
   },
+  label: {
+    color: 'darkgrey',
+    paddingLeft: 2,
+  },
 });
+
+export default memo(LandingZone)

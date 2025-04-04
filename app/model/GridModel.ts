@@ -1,5 +1,5 @@
 import { Piece } from '../components/PieceView';
-import { STARTING_ARRAY } from './data/startingArray';
+import STARTING_ARRAY from './data/startingArray';
 export default class GridModel {
   private grid: GridCell[] = [];
 

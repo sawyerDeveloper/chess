@@ -1,5 +1,5 @@
 import GridModel from '../GridModel';
-import { startingGrid } from '../mocks/startingGrid';
+import startingGrid from '../mocks/startingGrid';
 describe('GridModel', () => {
   describe('initGrid', () => {
     test('should initialize a grid that matches a static matrix of starting pieces', () => {
@@ -27,7 +27,7 @@ describe('GridModel', () => {
       const zone = model.getZone('a1');
       expect(zone?.id).toBe('a1');
       expect(zone?.piece.color).toBe('white')
-      expect(zone?.piece.type).toBe('Rook')
+      expect(zone?.piece.type).toBe('rook')
       expect(zone?.x).toBe(0)
       expect(zone?.y).toBe(0)
     });
@@ -37,7 +37,7 @@ describe('GridModel', () => {
       const zone = model.getZone('a2');
       expect(zone?.id).toBe('a2');
       expect(zone?.piece.color).toBe('white')
-      expect(zone?.piece.type).toBe('Pawn')
+      expect(zone?.piece.type).toBe('pawn')
       expect(zone?.x).toBe(0)
       expect(zone?.y).toBe(1)
     });
@@ -47,7 +47,7 @@ describe('GridModel', () => {
       const zone = model.getZone('h7');
       expect(zone?.id).toBe('h7');
       expect(zone?.piece.color).toBe('black')
-      expect(zone?.piece.type).toBe('Pawn')
+      expect(zone?.piece.type).toBe('pawn')
       expect(zone?.x).toBe(7)
       expect(zone?.y).toBe(6)
     });
@@ -57,7 +57,7 @@ describe('GridModel', () => {
       const zone = model.getZone('d8');
       expect(zone?.id).toBe('d8');
       expect(zone?.piece.color).toBe('black')
-      expect(zone?.piece.type).toBe('Queen')
+      expect(zone?.piece.type).toBe('queen')
       expect(zone?.x).toBe(3)
       expect(zone?.y).toBe(7)
     });

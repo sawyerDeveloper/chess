@@ -1,10 +1,10 @@
-export const startingGrid = [
+const startingGrid = [
   {
     x: 0,
     y: 0,
     id: 'a1',
     piece: {
-      type: 'Rook',
+      type: 'rook',
       color: 'white',
     },
   },
@@ -13,7 +13,7 @@ export const startingGrid = [
     y: 1,
     id: 'a2',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'white',
     },
   },
@@ -58,7 +58,7 @@ export const startingGrid = [
     y: 6,
     id: 'a7',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'black',
     },
   },
@@ -67,7 +67,7 @@ export const startingGrid = [
     y: 7,
     id: 'a8',
     piece: {
-      type: 'Rook',
+      type: 'rook',
       color: 'black',
     },
   },
@@ -76,7 +76,7 @@ export const startingGrid = [
     y: 0,
     id: 'b1',
     piece: {
-      type: 'Knight',
+      type: 'knight',
       color: 'white',
     },
   },
@@ -85,7 +85,7 @@ export const startingGrid = [
     y: 1,
     id: 'b2',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'white',
     },
   },
@@ -130,7 +130,7 @@ export const startingGrid = [
     y: 6,
     id: 'b7',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'black',
     },
   },
@@ -139,7 +139,7 @@ export const startingGrid = [
     y: 7,
     id: 'b8',
     piece: {
-      type: 'Knight',
+      type: 'knight',
       color: 'black',
     },
   },
@@ -148,7 +148,7 @@ export const startingGrid = [
     y: 0,
     id: 'c1',
     piece: {
-      type: 'Bishop',
+      type: 'bishop',
       color: 'white',
     },
   },
@@ -157,7 +157,7 @@ export const startingGrid = [
     y: 1,
     id: 'c2',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'white',
     },
   },
@@ -202,7 +202,7 @@ export const startingGrid = [
     y: 6,
     id: 'c7',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'black',
     },
   },
@@ -211,7 +211,7 @@ export const startingGrid = [
     y: 7,
     id: 'c8',
     piece: {
-      type: 'Bishop',
+      type: 'bishop',
       color: 'black',
     },
   },
@@ -220,7 +220,7 @@ export const startingGrid = [
     y: 0,
     id: 'd1',
     piece: {
-      type: 'Queen',
+      type: 'queen',
       color: 'white',
     },
   },
@@ -229,7 +229,7 @@ export const startingGrid = [
     y: 1,
     id: 'd2',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'white',
     },
   },
@@ -274,7 +274,7 @@ export const startingGrid = [
     y: 6,
     id: 'd7',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'black',
     },
   },
@@ -283,7 +283,7 @@ export const startingGrid = [
     y: 7,
     id: 'd8',
     piece: {
-      type: 'Queen',
+      type: 'queen',
       color: 'black',
     },
   },
@@ -292,7 +292,7 @@ export const startingGrid = [
     y: 0,
     id: 'e1',
     piece: {
-      type: 'King',
+      type: 'king',
       color: 'white',
     },
   },
@@ -301,7 +301,7 @@ export const startingGrid = [
     y: 1,
     id: 'e2',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'white',
     },
   },
@@ -346,7 +346,7 @@ export const startingGrid = [
     y: 6,
     id: 'e7',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'black',
     },
   },
@@ -355,7 +355,7 @@ export const startingGrid = [
     y: 7,
     id: 'e8',
     piece: {
-      type: 'King',
+      type: 'king',
       color: 'black',
     },
   },
@@ -364,7 +364,7 @@ export const startingGrid = [
     y: 0,
     id: 'f1',
     piece: {
-      type: 'Bishop',
+      type: 'bishop',
       color: 'white',
     },
   },
@@ -373,7 +373,7 @@ export const startingGrid = [
     y: 1,
     id: 'f2',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'white',
     },
   },
@@ -418,7 +418,7 @@ export const startingGrid = [
     y: 6,
     id: 'f7',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'black',
     },
   },
@@ -427,7 +427,7 @@ export const startingGrid = [
     y: 7,
     id: 'f8',
     piece: {
-      type: 'Bishop',
+      type: 'bishop',
       color: 'black',
     },
   },
@@ -436,7 +436,7 @@ export const startingGrid = [
     y: 0,
     id: 'g1',
     piece: {
-      type: 'Knight',
+      type: 'knight',
       color: 'white',
     },
   },
@@ -445,7 +445,7 @@ export const startingGrid = [
     y: 1,
     id: 'g2',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'white',
     },
   },
@@ -490,7 +490,7 @@ export const startingGrid = [
     y: 6,
     id: 'g7',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'black',
     },
   },
@@ -499,7 +499,7 @@ export const startingGrid = [
     y: 7,
     id: 'g8',
     piece: {
-      type: 'Knight',
+      type: 'knight',
       color: 'black',
     },
   },
@@ -508,7 +508,7 @@ export const startingGrid = [
     y: 0,
     id: 'h1',
     piece: {
-      type: 'Rook',
+      type: 'rook',
       color: 'white',
     },
   },
@@ -517,7 +517,7 @@ export const startingGrid = [
     y: 1,
     id: 'h2',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'white',
     },
   },
@@ -562,7 +562,7 @@ export const startingGrid = [
     y: 6,
     id: 'h7',
     piece: {
-      type: 'Pawn',
+      type: 'pawn',
       color: 'black',
     },
   },
@@ -571,8 +571,10 @@ export const startingGrid = [
     y: 7,
     id: 'h8',
     piece: {
-      type: 'Rook',
+      type: 'rook',
       color: 'black',
     },
   },
 ];
+
+export default startingGrid
