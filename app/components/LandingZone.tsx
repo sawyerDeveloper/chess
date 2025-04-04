@@ -13,7 +13,8 @@ interface LandingZoneProps {
   color: LandingZoneColors;
   id: string;
 }
- function LandingZone({
+
+function LandingZone({
   gridCoordinates,
   color,
   id,
