@@ -17,9 +17,9 @@ export default function GridView() {
       if (zone) {
         views.push(
           <LandingZone
-            id={zone && zone.id}
-            key={zone && zone.id}
-            piece={zone && zone.piece}
+            id={zone.id}
+            key={zone.id}
+            piece={zone.piece}
             gridCoordinates={[row, column]}
             color={
               row % 2 == column % 2
