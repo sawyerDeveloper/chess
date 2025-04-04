@@ -1,15 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
+import ZoneContext from './context/ZoneContext';
 
 export enum PieceType {
-  KING = 'King',
-  QUEEN = 'Queen',
-  BISHOP = 'Bishop',
-  KNIGHT = 'Knight',
-  ROOK = 'Rook',
-  PAWN = 'Pawn',
-  EMPTY = 'Empty',
+  KING = 'king',
+  QUEEN = 'queen',
+  BISHOP = 'bishop',
+  KNIGHT = 'knight',
+  ROOK = 'rook',
+  PAWN = 'pawn',
 }
 
 export enum PieceColor {
@@ -23,18 +23,19 @@ export type Piece = {
 };
 
 interface PieceViewProps {
-  color: PieceColor;
-  type: PieceType;
-  active: Boolean;
+  id: string;
 }
 
-function PieceView({ color, type, active }: PieceViewProps) {
+function PieceView({ id }: PieceViewProps) {
+  const { model, getPressedZone } = useContext(ZoneContext);
+  const piece = model.getZone(id)?.piece;
+  const active = getPressedZone() === id;
   return (
     <View style={styles.container}>
       <FontAwesome5
         style={[
           {
-            textShadowColor: color === 'white' ? 'black' : 'white',
+            textShadowColor: piece?.color === 'white' ? 'black' : 'white',
             textShadowRadius: active ? 2 : 1,
             textShadowOffset: {
               width: active ? 1.5 : 1,
@@ -42,9 +43,9 @@ function PieceView({ color, type, active }: PieceViewProps) {
             },
           },
         ]}
-        name={'chess-' + type?.toLowerCase()}
+        name={'chess-' + piece?.type}
         size={active ? 70 : 45}
-        color={color}
+        color={piece?.color}
       />
     </View>
   );

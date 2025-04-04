@@ -8,12 +8,24 @@ describe('ChessModel', () => {
       expect(model.getZone('a7')?.piece.color === 'white');
     });
     test('Disallow a move against same color', () => {
-        const model = new ChessModel();
-        expect(model.getZone('b1')?.piece.color === 'white' && model.getZone('b1')?.piece.type === 'Knight');
-        expect(model.getZone('a2')?.piece.color === 'white' && model.getZone('a2')?.piece.type === 'Pawn');
-        model.validateMove('a2', 'b1');
-        expect(model.getZone('b1')?.piece.color === 'white' && model.getZone('b1')?.piece.type === 'Knight');
-        expect(model.getZone('a2')?.piece.color === 'white' && model.getZone('a2')?.piece.type === 'Pawn');
-      });
+      const model = new ChessModel();
+      expect(
+        model.getZone('b1')?.piece.color === 'white' &&
+          model.getZone('b1')?.piece.type === 'knight'
+      );
+      expect(
+        model.getZone('a2')?.piece.color === 'white' &&
+          model.getZone('a2')?.piece.type === 'pawn'
+      );
+      model.validateMove('a2', 'b1');
+      expect(
+        model.getZone('b1')?.piece.color === 'white' &&
+          model.getZone('b1')?.piece.type === 'knight'
+      );
+      expect(
+        model.getZone('a2')?.piece.color === 'white' &&
+          model.getZone('a2')?.piece.type === 'pawn'
+      );
+    });
   });
 });

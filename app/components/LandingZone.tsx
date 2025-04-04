@@ -28,11 +28,9 @@ export default function LandingZone({
       onPress={() => zoneContext.onPress(id)}
     >
       <Text style={styles.label}>{id}</Text>
-      {piece.type && piece.color && (
+      {piece.type && (
         <PieceView
-          active={id === zoneContext.getPressedZone()}
-          color={piece.color}
-          type={piece.type}
+          id={id}
         />
       )}
     </Pressable>
