@@ -42,11 +42,8 @@ export default class GridModel {
     return this.grid;
   }
 
-  public getZone(id: string): GridCell | undefined {
-    const zone = this.grid.find((zone) => zone.id === id);
-    if (zone) {
-      return zone;
-    }
+  public getZone(id: string): GridCell {
+    return this.grid.filter((zone) => zone.id === id)[0];
   }
 }
 

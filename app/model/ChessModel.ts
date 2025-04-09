@@ -1,10 +1,15 @@
 import GridModel, { GridCell } from './GridModel';
+import PieceModel, { MoveMatrix } from './PieceModel';
 
 export default class ChessModel {
   private gridModel: GridModel;
+  private pieceModel: PieceModel
+  private availableZones: GridCell[] = []
+  
   constructor() {
     console.info('ChessModel');
     this.gridModel = new GridModel();
+    this.pieceModel = new PieceModel()
     this.gridModel.initGrid();
   }
 
@@ -12,8 +17,17 @@ export default class ChessModel {
     return this.gridModel.getGrid();
   }
 
-  public getZone(id: string): GridCell | undefined {
+  public getZone(id: string): GridCell {
     return this.gridModel.getZone(id);
+  }
+
+  public setAvailableZones(zone: string) {
+    const piece = this.getZone(zone).piece
+    const possibleMoves = this.pieceModel.getMoves(piece, zone)
+    let newMoves : MoveMatrix = possibleMoves[0]
+    console.log(newMoves)
+
+
   }
 
   public validateMove(start: string, end: string): Boolean {

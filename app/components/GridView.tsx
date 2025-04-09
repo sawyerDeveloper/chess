@@ -19,7 +19,6 @@ export default function GridView() {
           <LandingZone
             id={zone.id}
             key={zone.id}
-            piece={zone.piece}
             gridCoordinates={[row, column]}
             color={
               row % 2 == column % 2

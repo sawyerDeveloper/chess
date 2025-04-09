@@ -19,6 +19,7 @@ const ZoneContextProvider = ({
       return;
     }
     if (!pressedZone && model.getZone(zone)?.piece.type) {
+      model.setAvailableZones(zone)
       setPressedZone(zone);
     } else {
       model.validateMove(pressedZone, zone);
