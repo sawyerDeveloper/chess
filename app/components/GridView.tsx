@@ -19,7 +19,6 @@ export default function GridView() {
           <LandingZone
             id={zone.id}
             key={zone.id}
-            gridCoordinates={[row, column]}
             color={
               row % 2 == column % 2
                 ? LandingZoneColors.WHITE
@@ -43,6 +42,7 @@ export default function GridView() {
     }
     return views;
   };
+
   return <View style={styles.container}>{layoutGrid()}</View>;
 }
 

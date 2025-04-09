@@ -32,21 +32,23 @@ function PieceView({ id }: PieceViewProps) {
   const active = getPressedZone() === id;
   return (
     <View style={styles.container}>
-      <FontAwesome5
-        style={[
-          {
-            textShadowColor: piece?.color === 'white' ? 'black' : 'white',
-            textShadowRadius: active ? 2 : 1,
-            textShadowOffset: {
-              width: active ? 1.5 : 1,
-              height: active ? 1.5 : 1,
+      {piece.type && (
+        <FontAwesome5
+          style={[
+            {
+              textShadowColor: piece?.color === 'white' ? 'black' : 'white',
+              textShadowRadius: active ? 2 : 1,
+              textShadowOffset: {
+                width: active ? 1.5 : 1,
+                height: active ? 1.5 : 1,
+              },
             },
-          },
-        ]}
-        name={'chess-' + piece?.type}
-        size={active ? 70 : 45}
-        color={piece?.color}
-      />
+          ]}
+          name={'chess-' + piece?.type}
+          size={active ? 70 : 45}
+          color={piece?.color}
+        />
+      )}
     </View>
   );
 }

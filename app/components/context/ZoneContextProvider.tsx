@@ -18,7 +18,7 @@ const ZoneContextProvider = ({
       setPressedZone('');
       return;
     }
-    if (!pressedZone && model.getZone(zone)?.piece.type) {
+    if (!pressedZone && model.getZone(zone).piece.type) {
       model.setAvailableZones(zone)
       setPressedZone(zone);
     } else {
