@@ -91,18 +91,18 @@ const pieceMovesAtlas = {
     ],
   },
   knight: {
-    moves: [{ up: 2, right: 2 }],
+    moves: [{ up: 2, right: 1 }],
   },
   pawn: {
     moves: [
       {
         up: 1,
         upLeft: 0,
-        left: 1,
+        left: 0,
         downLeft: 0,
-        down: 1,
+        down: 0,
         downRight: 0,
-        right: 1,
+        right: 0,
         upRight: 0,
       },
       {
