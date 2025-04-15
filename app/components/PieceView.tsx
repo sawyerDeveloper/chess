@@ -23,13 +23,13 @@ export type Piece = {
 };
 
 interface PieceViewProps {
-  id: string;
+  zone: string;
 }
 
-function PieceView({ id }: PieceViewProps) {
+function PieceView({ zone }: PieceViewProps) {
   const { model, getPressedZone } = useContext(ZoneContext);
-  const piece = model.getZone(id)?.piece;
-  const active = getPressedZone() === id;
+  const piece = model.getZone(zone)?.piece;
+  const active = getPressedZone() === zone;
   return (
     <View style={styles.container}>
       {piece.type && (

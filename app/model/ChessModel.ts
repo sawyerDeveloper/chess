@@ -9,8 +9,8 @@ export default class ChessModel {
   constructor() {
     console.info('ChessModel');
     this.gridModel = new GridModel();
-    this.pieceModel = new PieceModel()
     this.gridModel.initGrid();
+    this.pieceModel = new PieceModel(this.gridModel.getGrid())
   }
 
   public getGrid() {
@@ -26,6 +26,7 @@ export default class ChessModel {
     if(pieceType){
       const possibleMoves = this.pieceModel.getMoves(pieceType, zone, this.getGrid())
       let newMoves : MoveMatrix = possibleMoves
+
       console.log(newMoves)
     }
   }

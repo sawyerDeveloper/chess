@@ -1,12 +1,17 @@
-import { Piece, PieceType } from '../components/PieceView';
+import { PieceType } from '../components/PieceView';
 import { GridCell } from './GridModel';
 
 export default class PieceModel {
-  constructor() {
+  private pieces : GridCell[] = []
+  constructor(grid: GridCell[]) {
     console.info('PieceModel');
+    this.pieces = grid.filter(zone => zone.piece.type)
   }
 
-  getMoves(type: PieceType, id: string, grid: GridCell[]): MoveMatrix {
+  getMoves(type: PieceType, zone: string, grid: GridCell[]): MoveMatrix {
+
+    console.log(this.pieces)
+
     return pieceMovesAtlas[type] as MoveMatrix;
   }
 }

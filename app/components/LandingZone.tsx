@@ -10,18 +10,18 @@ export enum LandingZoneColors {
 
 interface LandingZoneProps {
   color: LandingZoneColors;
-  id: string;
+  zone: string;
 }
 
-function LandingZone({ color, id }: LandingZoneProps) {
+function LandingZone({ color, zone }: LandingZoneProps) {
   const zoneContext = useContext(ZoneContext);
   return (
     <Pressable
       style={[styles.container, { backgroundColor: color }]}
-      onPress={() => zoneContext.onPress(id)}
+      onPress={() => zoneContext.onPress(zone)}
     >
-      <Text style={styles.label}>{id}</Text>
-      <PieceView id={id} />
+      <Text style={styles.label}>{zone}</Text>
+      <PieceView zone={zone} />
     </Pressable>
   );
 }
