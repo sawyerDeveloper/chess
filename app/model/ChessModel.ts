@@ -22,12 +22,12 @@ export default class ChessModel {
   }
 
   public setAvailableZones(zone: string) {
-    const piece = this.getZone(zone).piece
-    const possibleMoves = this.pieceModel.getMoves(piece, zone)
-    let newMoves : MoveMatrix = possibleMoves[0]
-    console.log(newMoves)
-
-
+    const pieceType = this.getZone(zone).piece.type
+    if(pieceType){
+      const possibleMoves = this.pieceModel.getMoves(pieceType, zone, this.getGrid())
+      let newMoves : MoveMatrix = possibleMoves
+      console.log(newMoves)
+    }
   }
 
   public validateMove(start: string, end: string): Boolean {
