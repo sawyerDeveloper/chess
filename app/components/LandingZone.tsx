@@ -9,30 +9,19 @@ export enum LandingZoneColors {
 }
 
 interface LandingZoneProps {
-  gridCoordinates: [number, number];
   color: LandingZoneColors;
-  id: string;
+  zone: string;
 }
 
-function LandingZone({
-  gridCoordinates,
-  color,
-  id,
-}: LandingZoneProps) {
+function LandingZone({ color, zone }: LandingZoneProps) {
   const zoneContext = useContext(ZoneContext);
-  const piece = zoneContext.model.getZone(id)?.piece;
-
   return (
     <Pressable
       style={[styles.container, { backgroundColor: color }]}
-      onPress={() => zoneContext.onPress(id)}
+      onPress={() => zoneContext.onPress(zone)}
     >
-      <Text style={styles.label}>{id}</Text>
-      {piece?.type && (
-        <PieceView
-          id={id}
-        />
-      )}
+      <Text style={styles.label}>{zone}</Text>
+      <PieceView zone={zone} />
     </Pressable>
   );
 }
@@ -50,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(LandingZone)
+export default memo(LandingZone);

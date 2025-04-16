@@ -14,12 +14,12 @@ export default class GridModel {
       for (let rank: number = 1; rank < 9; rank++) {
         const notation = letters[file - 1] + rank;
         const piece: Piece = pieceArray.find(
-          (piece) => piece.id === notation
+          (piece) => piece.zone === notation
         ) as Piece;
         this.grid.push({
           x: file - 1,
           y: rank - 1,
-          id: notation,
+          zone: notation,
           piece: { type: piece.type, color: piece.color } as Piece,
         });
       }
@@ -27,8 +27,8 @@ export default class GridModel {
   }
 
   public updateGrid(start: string, end: string) {
-    const startZone = this.grid.find((zone) => zone.id === start);
-    const endZone = this.grid.find((zone) => zone.id === end);
+    const startZone = this.grid.find((zone) => zone.zone === start);
+    const endZone = this.grid.find((zone) => zone.zone === end);
     //  TODO: Create a single value change for piece
     if (endZone?.piece && startZone?.piece) {
       endZone.piece.color = startZone.piece.color;
@@ -42,11 +42,8 @@ export default class GridModel {
     return this.grid;
   }
 
-  public getZone(id: string): GridCell | undefined {
-    const zone = this.grid.find((zone) => zone.id === id);
-    if (zone) {
-      return zone;
-    }
+  public getZone(zoneId: string): GridCell {
+    return this.grid.filter((zone) => zone.zone === zoneId)[0];
   }
 }
 
@@ -54,6 +51,6 @@ export const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 export type GridCell = {
   x: Number;
   y: Number;
-  id: string;
+  zone: string;
   piece: Piece;
 };
