@@ -1,20 +1,38 @@
-import { PieceType } from '../components/PieceView';
+import { useId } from 'react';
+import { PieceColor, PieceType } from '../components/PieceView';
 import { GridCell } from './GridModel';
 
 export default class PieceModel {
-  private pieces : GridCell[] = []
+  private pieces: PieceModelType[] = [];
   constructor(grid: GridCell[]) {
-    console.info('PieceModel');
-    this.pieces = grid.filter(zone => zone.piece.type)
+    this.pieces = grid
+      .filter((zone) => zone.piece.type)
+      .map((zone) => {
+        return {
+          id: useId(),
+          zone: zone.zone,
+          type: zone.piece.type,
+          color: zone.piece.color,
+          moves: [],
+        } as PieceModelType;
+      });
+    console.info('PieceModel', this.pieces);
   }
 
   getMoves(type: PieceType, zone: string, grid: GridCell[]): MoveMatrix {
-
-    console.log(this.pieces)
+    console.log(this.pieces);
 
     return pieceMovesAtlas[type] as MoveMatrix;
   }
 }
+
+type PieceModelType = {
+  id: string;
+  zone: string;
+  type: PieceType;
+  color: PieceColor;
+  moves: string[];
+};
 
 export type MoveMatrix = {
   up: [number] | [number, object];
@@ -79,13 +97,13 @@ const pieceMovesAtlas: MoveAtlas = {
   },
   knight: {
     up: [2],
-    upLeft: [0, {second: 1}],
+    upLeft: [0, { second: 1 }],
     left: [2],
-    downLeft: [0, {second: 1}],
+    downLeft: [0, { second: 1 }],
     down: [2],
-    downRight: [0, {second: 1}],
+    downRight: [0, { second: 1 }],
     right: [2],
-    upRight: [0, {second: 1}],
+    upRight: [0, { second: 1 }],
   },
   pawn: {
     up: [1, { first: 2 }],

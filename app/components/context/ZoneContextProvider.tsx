@@ -10,6 +10,7 @@ interface ZoneContextProviderProps {
 const ZoneContextProvider = ({ children, model }: ZoneContextProviderProps) => {
   const [pressedZone, setPressedZone] = useState('');
 
+  //  TODO implement a decoupled state approach to this method and its passing
   const onPress = useCallback(
     (zone: string) => {
       if (zone === pressedZone) {
