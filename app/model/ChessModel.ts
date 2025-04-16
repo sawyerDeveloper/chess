@@ -17,8 +17,8 @@ export default class ChessModel {
     return this.gridModel.getGrid();
   }
 
-  public getZone(id: string): GridCell {
-    return this.gridModel.getZone(id);
+  public getZone(zone: string): GridCell {
+    return this.gridModel.getZone(zone);
   }
 
   public setAvailableZones(zone: string) {

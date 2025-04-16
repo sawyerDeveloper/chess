@@ -12,13 +12,13 @@ export default function GridView() {
     let views = [];
     for (let row: number = 1; row < 9; row++) {
       const zone = model.getGrid().find((zone) => {
-        return zone.id === letters[column - 1] + row;
+        return zone.zone === letters[column - 1] + row;
       });
       if (zone) {
         views.push(
           <LandingZone
-            id={zone.id}
-            key={zone.id}
+            zone={zone.zone}
+            key={zone.zone}
             color={
               row % 2 == column % 2
                 ? LandingZoneColors.WHITE

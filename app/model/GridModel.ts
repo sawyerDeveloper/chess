@@ -42,8 +42,8 @@ export default class GridModel {
     return this.grid;
   }
 
-  public getZone(id: string): GridCell {
-    return this.grid.filter((zone) => zone.zone === id)[0];
+  public getZone(zoneId: string): GridCell {
+    return this.grid.filter((zone) => zone.zone === zoneId)[0];
   }
 }
 
