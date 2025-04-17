@@ -16,13 +16,45 @@ export default class PieceModel {
           moves: [],
         } as PieceModelType;
       });
-    console.info('PieceModel', this.pieces);
+    console.info('PieceModel');
   }
 
+  /**
+   * Returns a MoveMatrix of possible moves for a piece
+   *
+   * @param type PieceType
+   * @param zone string
+   * @param grid GridCell[]
+   * @returns MoveMatrix
+   */
   getMoves(type: PieceType, zone: string, grid: GridCell[]): MoveMatrix {
-    console.log(this.pieces);
+    const cell = grid.filter((cell) => cell.zone === zone)[0];
+    const start = [cell.x, cell.y];
+    const rawMoves = pieceMovesAtlas[type] as RawMoveMatrix;
+    const newMoves: MoveMatrix = {
+      up: this.processRawMoves(rawMoves.up, grid),
+      upLeft: this.processRawMoves(rawMoves.upLeft, grid),
+      left: this.processRawMoves(rawMoves.left, grid),
+      downLeft: this.processRawMoves(rawMoves.downLeft, grid),
+      down: this.processRawMoves(rawMoves.down, grid),
+      right: this.processRawMoves(rawMoves.right, grid),
+      downRight: this.processRawMoves(rawMoves.downRight, grid),
+      upRight: this.processRawMoves(rawMoves.upRight, grid),
+    };
 
-    return pieceMovesAtlas[type] as MoveMatrix;
+    console.log(start, rawMoves, newMoves);
+
+    return newMoves;
+  }
+
+  private processRawMoves(moves: MoveMatrixCell, grid: GridCell[]): string[] {
+    const newMoves = moves.map((move) => {
+      console.log(move);
+      return move;
+    });
+
+    // start with default moves
+    return moves[0];
   }
 }
 
@@ -35,23 +67,36 @@ type PieceModelType = {
 };
 
 export type MoveMatrix = {
-  up: [number] | [number, object];
-  upLeft: [number] | [number, object];
-  left: [number] | [number, object];
-  downLeft: [number] | [number, object];
-  down: [number] | [number, object];
-  downRight: [number] | [number, object];
-  right: [number] | [number, object];
-  upRight: [number] | [number, object];
+  up: string[];
+  upLeft: string[];
+  left: string[];
+  downLeft: string[];
+  down: string[];
+  downRight: string[];
+  right: string[];
+  upRight: string[];
 };
 
-export type MoveAtlas = {
-  king: MoveMatrix;
-  queen: MoveMatrix;
-  bishop: MoveMatrix;
-  rook: MoveMatrix;
-  knight: MoveMatrix;
-  pawn: MoveMatrix;
+type MoveMatrixCell = [number] | [number, object];
+
+type RawMoveMatrix = {
+  up: MoveMatrixCell;
+  upLeft: MoveMatrixCell;
+  left: MoveMatrixCell;
+  downLeft: MoveMatrixCell;
+  down: MoveMatrixCell;
+  downRight: MoveMatrixCell;
+  right: MoveMatrixCell;
+  upRight: MoveMatrixCell;
+};
+
+type MoveAtlas = {
+  king: RawMoveMatrix;
+  queen: RawMoveMatrix;
+  bishop: RawMoveMatrix;
+  rook: RawMoveMatrix;
+  knight: RawMoveMatrix;
+  pawn: RawMoveMatrix;
 };
 
 const pieceMovesAtlas: MoveAtlas = {
