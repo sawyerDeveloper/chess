@@ -42,6 +42,7 @@ export default class PieceModel {
     const rawMoves = pieceMovesAtlas[type] as RawMoveMatrix;
     //  3.
     const newMoves: MoveMatrix = {
+      //  4.
       up: this.processRawMoves(rawMoves.up, color, start),
       upLeft: this.processRawMoves(rawMoves.upLeft, color, start),
       left: this.processRawMoves(rawMoves.left, color, start),
