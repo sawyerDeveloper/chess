@@ -22,9 +22,9 @@ export default class ChessModel {
   }
 
   public setAvailableZones(zone: string) {
-    const pieceType = this.getZone(zone).piece.type
-    if(pieceType){
-      const possibleMoves = this.pieceModel.getMoves(pieceType, zone, this.getGrid())
+    const {type, color} = this.getZone(zone).piece
+    if(type && color){
+      const possibleMoves = this.pieceModel.getMoves(type, color, zone)
       let newMoves : MoveMatrix = possibleMoves
 
       console.log(newMoves)

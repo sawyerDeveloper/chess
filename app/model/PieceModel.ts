@@ -36,7 +36,7 @@ export default class PieceModel {
    */
   getMoves(type: PieceType, color: PieceColor, zone: string): MoveMatrix {
     //  1.
-    const cell = this.grid.filter((cell) => cell.zone === zone)[0];
+    const cell = this.grid.filter((cell) => cell.zone == zone)[0];
     const start: [Number, Number] = [cell.x, cell.y];
     //  2.
     const rawMoves = pieceMovesAtlas[type] as RawMoveMatrix;
@@ -52,15 +52,13 @@ export default class PieceModel {
       downRight: this.processRawMoves(rawMoves.downRight, color, start),
       upRight: this.processRawMoves(rawMoves.upRight, color, start),
     };
-
-    console.log(start, rawMoves, newMoves);
-
+    //  5.
     return newMoves;
   }
 
   /**
    * Returns the possible moves per one direction from a MoveMatrix
-   * 
+   *
    * 1. Establish each possible move ranges from the MoveMatrixCell
    * 2. 'Attempt' each move against the grid from the start point
    * 3. If the move is to an empty zone, keep it
@@ -79,15 +77,12 @@ export default class PieceModel {
     color: PieceColor,
     start: [Number, Number]
   ): string[] {
-
     //  1.
-    const newMoves = moves.map((move) => {
-      console.log(move);
-      return move;
-    });
+    const defaultMoves = moves[0]
+    const nonStandardMoves = moves[1]
 
     // start with default moves
-    return moves[0];
+    return defaultMoves;
   }
 }
 
