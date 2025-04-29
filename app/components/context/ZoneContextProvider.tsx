@@ -9,6 +9,7 @@ interface ZoneContextProviderProps {
 
 const ZoneContextProvider = ({ children, model }: ZoneContextProviderProps) => {
   const [pressedZone, setPressedZone] = useState('');
+  const [availableZones, setAvailableZones] = useState([''])
 
   //  TODO implement a decoupled state approach to this method and its passing
   const onPress = useCallback(
@@ -19,9 +20,10 @@ const ZoneContextProvider = ({ children, model }: ZoneContextProviderProps) => {
       }
 
       if (!pressedZone && model.getZone(zone).piece.type) {
-        model.setAvailableZones(zone);
+        setAvailableZones(model.getAvailableZones(zone));
         setPressedZone(zone);
       } else {
+        setAvailableZones([''])
         model.validateMove(pressedZone, zone);
         setPressedZone('');
       }
@@ -34,8 +36,8 @@ const ZoneContextProvider = ({ children, model }: ZoneContextProviderProps) => {
   }, [pressedZone]);
 
   const value = useMemo(
-    () => ({ onPress, getPressedZone, model }),
-    [onPress, getPressedZone]
+    () => ({ onPress, getPressedZone, model, availableZones }),
+    [onPress, getPressedZone, availableZones]
   );
   return <ZoneContext.Provider value={value}>{children}</ZoneContext.Provider>;
 };

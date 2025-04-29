@@ -21,13 +21,13 @@ export default class ChessModel {
     return this.gridModel.getZone(zone);
   }
 
-  public setAvailableZones(zone: string) {
+  public getAvailableZones(zone: string) : string[] {
     const {type, color} = this.getZone(zone).piece
     if(type && color){
       const possibleMoves = this.pieceModel.getMoves(type, color, zone)
-      let newMoves : MoveMatrix = possibleMoves
-
+      let newMoves : string[] = possibleMoves
       console.log(newMoves)
+      return newMoves
     }
   }
 

@@ -15,12 +15,24 @@ interface LandingZoneProps {
 
 function LandingZone({ color, zone }: LandingZoneProps) {
   const zoneContext = useContext(ZoneContext);
+  const avail = zoneContext.availableZones.includes(zone)
   return (
     <Pressable
-      style={[styles.container, { backgroundColor: color }]}
+      style={[styles.container, { backgroundColor: avail ? 'darkgreen': color }]}
       onPress={() => zoneContext.onPress(zone)}
     >
-      <Text style={styles.label}>{zone}</Text>
+      <Text
+        style={[
+          styles.label,
+          {
+            color: avail
+              ? 'lightgreen'
+              : 'darkgrey',
+          },
+        ]}
+      >
+        {zone}
+      </Text>
       <PieceView zone={zone} />
     </Pressable>
   );

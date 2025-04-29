@@ -22,38 +22,52 @@ export default class PieceModel {
   }
 
   /**
-   * Returns a MoveMatrix of possible moves for a piece
+   * Returns an array of possible moves for a piece.
    * Sequence:
-   * 1. Establish the x,y of the landingZone cell of the pressed piece
-   * 2. Gets that piece's possible moves
-   * 3. Interpolate the moves against the grid system and Algerbraic Notation
-   * 4. Remove moves depending on if the moves are not aligned with open/attackable zones
-   * 5. Return moves that are left
+   * 1. Establish the x,y of the landingZone cell of the pressed piece.
+   * 2. Gets that piece's possible moves.
+   * 3. Interpolate the moves against the grid system and Algerbraic Notation.
+   * 4. Remove moves depending on if the moves are not aligned with open/attackable zones.
+   * 5. Return moves that are left.
    *
    * @param type PieceType
    * @param zone string
-   * @returns MoveMatrix
+   * @returns string[]
    */
-  getMoves(type: PieceType, color: PieceColor, zone: string): MoveMatrix {
+  getMoves(type: PieceType, color: PieceColor, zone: string): string[] {
     //  1.
     const cell = this.grid.filter((cell) => cell.zone == zone)[0];
-    const start: [Number, Number] = [cell.x, cell.y];
+    const start: StartingPosition = { x: cell.x, y: cell.y };
     //  2.
     const rawMoves = pieceMovesAtlas[type] as RawMoveMatrix;
     //  3.
-    const newMoves: MoveMatrix = {
+    const newMoves: string[] =
       //  4.
-      up: this.processRawMoves(rawMoves.up, color, start),
-      upLeft: this.processRawMoves(rawMoves.upLeft, color, start),
-      left: this.processRawMoves(rawMoves.left, color, start),
-      downLeft: this.processRawMoves(rawMoves.downLeft, color, start),
-      down: this.processRawMoves(rawMoves.down, color, start),
-      right: this.processRawMoves(rawMoves.right, color, start),
-      downRight: this.processRawMoves(rawMoves.downRight, color, start),
-      upRight: this.processRawMoves(rawMoves.upRight, color, start),
-    };
+      this.processRawMoves(rawMoves, color, start);
     //  5.
     return newMoves;
+  }
+
+
+  /**
+   * Takes the moves for a particular piece and runs them against the actual grid.
+   * @param moves 
+   * @param color 
+   * @param start 
+   * @returns 
+   */
+  private processRawMoves(
+    moves: RawMoveMatrix,
+    color: PieceColor,
+    start: StartingPosition
+  ): string[] {
+    //  1.
+    const allDirections = Object.keys(moves).map((direction) => {
+      const direct = direction as Direction;
+      return this.processMoveDirection(direct, moves[direct], color, start);
+    });
+
+    return allDirections.flat();
   }
 
   /**
@@ -67,24 +81,42 @@ export default class PieceModel {
    * 6. If the move is to a zone that is off the board, toss it
    * 7. Return each move that is legal
    *
+   * @param direction Direction
    * @param moves MoveMatrixCell
    * @param color PieceColor
-   * @param start [number, number]
-   * @returns string[]
+   * @param start StartingPosition
+   * @returns MoveMatrix
    */
-  private processRawMoves(
+  private processMoveDirection(
+    direction: Direction,
     moves: MoveMatrixCell,
     color: PieceColor,
-    start: [Number, Number]
+    start: StartingPosition
   ): string[] {
-    //  1.
-    const defaultMoves = moves[0]
-    const nonStandardMoves = moves[1]
-
-    // start with default moves
-    return defaultMoves;
+    console.log(moves)
+    let newMoves
+    if(direction === 'up'){
+      newMoves = ['a3', 'a4']
+    }
+    
+    return newMoves
   }
 }
+
+type StartingPosition = {
+  x: Number;
+  y: Number;
+};
+
+type Direction =
+  | 'up'
+  | 'down'
+  | 'left'
+  | 'right'
+  | 'upLeft'
+  | 'upRight'
+  | 'downLeft'
+  | 'downRight';
 
 type PieceModelType = {
   id: string;
