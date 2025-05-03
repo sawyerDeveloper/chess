@@ -2,6 +2,8 @@ import { Pressable, StyleSheet, Text } from 'react-native';
 import PieceView from './PieceView';
 import { memo, useContext } from 'react';
 import ZoneContext from './context/ZoneContext';
+import { ZoneID } from '../model/GridModel';
+import ZoneLabel from './ui/ZoneLabel';
 
 export enum LandingZoneColors {
   WHITE = 'lightgrey',
@@ -10,29 +12,21 @@ export enum LandingZoneColors {
 
 interface LandingZoneProps {
   color: LandingZoneColors;
-  zone: string;
+  zone: ZoneID;
 }
 
 function LandingZone({ color, zone }: LandingZoneProps) {
-  const zoneContext = useContext(ZoneContext);
-  const avail = zoneContext.availableZones.includes(zone)
+  const { availableZones, onPress } = useContext(ZoneContext);
+  const avail = availableZones.includes(zone);
   return (
     <Pressable
-      style={[styles.container, { backgroundColor: avail ? 'darkgreen': color }]}
-      onPress={() => zoneContext.onPress(zone)}
+      style={[
+        styles.container,
+        { backgroundColor: avail ? 'darkgreen' : color },
+      ]}
+      onPress={() => onPress(zone)}
     >
-      <Text
-        style={[
-          styles.label,
-          {
-            color: avail
-              ? 'lightgreen'
-              : 'darkgrey',
-          },
-        ]}
-      >
-        {zone}
-      </Text>
+      <ZoneLabel available={avail} zone={zone} />
       <PieceView zone={zone} />
     </Pressable>
   );
@@ -44,10 +38,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderWidth: 0.5,
-  },
-  label: {
-    color: 'darkgrey',
-    paddingLeft: 2,
   },
 });
 

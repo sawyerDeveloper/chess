@@ -1,37 +1,37 @@
-import GridModel, { GridCell } from './GridModel';
-import PieceModel, { MoveMatrix } from './PieceModel';
+import GridModel, { GridCell, ZoneID } from './GridModel';
+import PieceModel from './PieceModel';
 
 export default class ChessModel {
   private gridModel: GridModel;
-  private pieceModel: PieceModel
-  private availableZones: GridCell[] = []
-  
+  private pieceModel: PieceModel;
+
   constructor() {
     console.info('ChessModel');
     this.gridModel = new GridModel();
     this.gridModel.initGrid();
-    this.pieceModel = new PieceModel(this.gridModel.getGrid())
+    this.pieceModel = new PieceModel(this.gridModel.getGrid());
   }
 
-  public getGrid() {
+  public getGrid(): GridCell[] {
     return this.gridModel.getGrid();
   }
 
-  public getZone(zone: string): GridCell {
+  public getZone(zone: ZoneID): GridCell {
     return this.gridModel.getZone(zone);
   }
 
-  public getAvailableZones(zone: string) : string[] {
-    const {type, color} = this.getZone(zone).piece
-    if(type && color){
-      const possibleMoves = this.pieceModel.getMoves(type, color, zone)
-      let newMoves : string[] = possibleMoves
-      console.log(newMoves)
-      return newMoves
+  public getAvailableZones(zone: ZoneID): ZoneID[] {
+    const { type, color } = this.getZone(zone).piece;
+    let newMoves: ZoneID[] = [];
+    if (type && color) {
+      const possibleMoves = this.pieceModel.getMoves(type, color, zone);
+      newMoves = possibleMoves;
+      console.log(newMoves);
     }
+    return newMoves;
   }
 
-  public validateMove(start: string, end: string): Boolean {
+  public validateMove(start: ZoneID, end: ZoneID): Boolean {
     if (
       this.gridModel.getZone(end)?.piece.color ===
       this.gridModel.getZone(start)?.piece.color

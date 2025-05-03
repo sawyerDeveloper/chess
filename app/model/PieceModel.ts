@@ -1,6 +1,5 @@
-import { useId } from 'react';
 import { PieceColor, PieceType } from '../components/PieceView';
-import { GridCell } from './GridModel';
+import { GridCell, ZoneID } from './GridModel';
 
 export default class PieceModel {
   private pieces: PieceModelType[] = [];
@@ -10,9 +9,9 @@ export default class PieceModel {
     this.grid = grid;
     this.pieces = grid
       .filter((zone) => zone.piece.type)
-      .map((zone) => {
+      .map((zone, index) => {
         return {
-          id: useId(),
+          id: index,
           zone: zone.zone,
           type: zone.piece.type,
           color: zone.piece.color,
@@ -34,39 +33,38 @@ export default class PieceModel {
    * @param zone string
    * @returns string[]
    */
-  getMoves(type: PieceType, color: PieceColor, zone: string): string[] {
+  getMoves(type: PieceType, color: PieceColor, zone: string): ZoneID[] {
     //  1.
     const cell = this.grid.filter((cell) => cell.zone == zone)[0];
     const start: StartingPosition = { x: cell.x, y: cell.y };
     //  2.
     const rawMoves = pieceMovesAtlas[type] as RawMoveMatrix;
     //  3.
-    const newMoves: string[] =
+    const newMoves: ZoneID[] =
       //  4.
       this.processRawMoves(rawMoves, color, start);
     //  5.
     return newMoves;
   }
 
-
   /**
-   * Takes the moves for a particular piece and runs them against the actual grid.
-   * @param moves 
-   * @param color 
-   * @param start 
-   * @returns 
+   * Starts with the moves for a particular piece and runs them against
+   * the actual grid from the starting point of the selected piece.
+   *
+   * @param moves
+   * @param color
+   * @param start
+   * @returns
    */
   private processRawMoves(
     moves: RawMoveMatrix,
     color: PieceColor,
     start: StartingPosition
-  ): string[] {
-    //  1.
+  ): ZoneID[] {
     const allDirections = Object.keys(moves).map((direction) => {
       const direct = direction as Direction;
       return this.processMoveDirection(direct, moves[direct], color, start);
     });
-
     return allDirections.flat();
   }
 
@@ -92,14 +90,14 @@ export default class PieceModel {
     moves: MoveMatrixCell,
     color: PieceColor,
     start: StartingPosition
-  ): string[] {
-    console.log(moves)
-    let newMoves
-    if(direction === 'up'){
-      newMoves = ['a3', 'a4']
+  ): ZoneID[] {
+    console.log(moves);
+    let newMoves: ZoneID[] = [];
+    if (direction === 'up') {
+      newMoves = ['a3', 'a4'];
     }
-    
-    return newMoves
+
+    return newMoves;
   }
 }
 
@@ -119,7 +117,7 @@ type Direction =
   | 'downRight';
 
 type PieceModelType = {
-  id: string;
+  id: number;
   zone: string;
   type: PieceType;
   color: PieceColor;
