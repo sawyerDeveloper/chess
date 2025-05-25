@@ -1,4 +1,4 @@
-import { Piece } from "../components/PieceView";
+import { Piece } from "../types/PieceTypes";
 
 export const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 

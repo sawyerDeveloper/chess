@@ -1,4 +1,4 @@
-import { Piece } from '../components/PieceView';
+import { Piece } from '../types/PieceTypes';
 import { GridCell, letters, ZoneID } from '../types/GridTypes';
 import STARTING_ARRAY from './data/startingArray';
 export default class GridModel {

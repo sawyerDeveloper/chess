@@ -2,26 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { memo, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ZoneContext from './context/ZoneContext';
-import { ZoneID } from '../model/GridModel';
-
-export enum PieceType {
-  KING = 'king',
-  QUEEN = 'queen',
-  BISHOP = 'bishop',
-  KNIGHT = 'knight',
-  ROOK = 'rook',
-  PAWN = 'pawn',
-}
-
-export enum PieceColor {
-  WHITE = 'white',
-  BLACK = 'black',
-}
-
-export type Piece = {
-  type: PieceType | null | undefined;
-  color: PieceColor | null | undefined;
-};
+import { ZoneID } from '../types/GridTypes';
 
 interface PieceViewProps {
   zone: ZoneID;
