@@ -181,7 +181,9 @@ export default class PieceModel {
   }
 }
 
-type StepValue = { x: 0 | 1 | -1; y: 0 | 1 | -1 };
+type StepValueRange = 0 | 1 | -1;
+
+type StepValue = { x: StepValueRange; y: StepValueRange };
 
 type PieceModelType = {
   id: number;
