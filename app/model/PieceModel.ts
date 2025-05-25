@@ -35,14 +35,14 @@ export default class PieceModel {
    *
    * @param type PieceType
    * @param zone string
-   * @returns string[]
+   * @returns ZoneID[]
    */
   getMoves(type: PieceType, color: PieceColor, zone: string): ZoneID[] {
     //  1.
     const cell = this.grid.filter((cell) => cell.zone == zone)[0];
     const start: StartingPosition = { x: cell.x, y: cell.y };
     //  2.
-    const rawMoves = pieceMovesAtlas[type] as RawMoveMatrix;
+    const rawMoves = pieceMovesAtlas[type] as MoveMatrix;
     //  3.
     const newMoves: ZoneID[] = this.processRawMoves(rawMoves, color, start);
     //  4.
@@ -59,7 +59,7 @@ export default class PieceModel {
    * @returns ZoneID[]
    */
   private processRawMoves(
-    moves: RawMoveMatrix,
+    moves: MoveMatrix,
     color: PieceColor,
     start: StartingPosition
   ): ZoneID[] {
@@ -74,27 +74,7 @@ export default class PieceModel {
   }
 
   /**
-   * Returns only legal moves.
-   *
-   * 1. 'Attempt' each move against the grid from the start point
-   * 2. If the move is to an empty zone, keep it
-   * 3. If the move is to a zone with an opponent's piece, keep it
-   * 4. If the move is to zone with same color piece, toss it
-   * 5. If the move is to a zone that is off the board, toss it
-   * 6. Return each remaining move.
-   *
-   * @param moves
-   * @returns ZoneID[]
-   */
-  private validateMoves(moves: ZoneID[]): ZoneID[] {
-    let validatedMoves = ['' as ZoneID];
-
-    console.log(moves);
-    return moves;
-  }
-
-  /**
-   * Returns the possible moves per one direction from a MoveMatrix
+   * Returns the possible moves per one direction from a MoveMatrixCell
    *
    * 1. Establish each possible move ranges from the MoveMatrixCell including rules
    * 2. Iterate over each direction possibility against the number of range
@@ -151,6 +131,26 @@ export default class PieceModel {
   }
 
   /**
+   * Returns only legal moves.
+   *
+   * 1. 'Attempt' each move against the grid from the start point
+   * 2. If the move is to an empty zone, keep it
+   * 3. If the move is to a zone with an opponent's piece, keep it
+   * 4. If the move is to zone with same color piece, toss it
+   * 5. If the move is to a zone that is off the board, toss it
+   * 6. Return each remaining move.
+   *
+   * @param moves
+   * @returns ZoneID[]
+   */
+  private validateMoves(moves: ZoneID[]): ZoneID[] {
+    let validatedMoves = ['' as ZoneID];
+
+    console.log(moves);
+    return moves;
+  }
+
+  /**
    * Returns a set of values to that direct the change along an x and y axis
    * The value of x and y are 0, 1 or -1
    * { x : 0 | 1 | -1 , y : 0 | 1 | -1 }
@@ -159,7 +159,7 @@ export default class PieceModel {
    * @param direction
    * @returns StartingPosition
    */
-  private getStepValue(direction: Direction): StartingPosition {
+  private getStepValue(direction: Direction): StepValue {
     switch (direction) {
       case 'up':
         return { x: 0, y: 1 };
@@ -181,6 +181,8 @@ export default class PieceModel {
   }
 }
 
+type StepValue = { x: 0 | 1 | -1; y: 0 | 1 | -1 };
+
 type PieceModelType = {
   id: number;
   zone: string;
@@ -189,17 +191,6 @@ type PieceModelType = {
   x: number;
   y: number;
   history: ZoneID[];
-};
-
-export type MoveMatrix = {
-  up: ZoneID[];
-  upLeft: ZoneID[];
-  left: ZoneID[];
-  downLeft: ZoneID[];
-  down: ZoneID[];
-  downRight: ZoneID[];
-  right: ZoneID[];
-  upRight: ZoneID[];
 };
 
 type StartingPosition = {
@@ -216,11 +207,16 @@ type Direction =
   | 'upRight'
   | 'downLeft'
   | 'downRight';
-type RuleType = 'castle' | 'attack' | 'first' | 'second';
-type Rule = { type: RuleType; range: number };
-type MoveMatrixCell = [number] | [number, Rule];
 
-type RawMoveMatrix = {
+type RuleType = 'castle' | 'attack' | 'first' | 'second';
+
+type Rule = { type: RuleType; range: 1 | 2 };
+
+type Ranges = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
+type MoveMatrixCell = [Ranges] | [Ranges, Rule];
+
+type MoveMatrix = {
   up: MoveMatrixCell;
   upLeft: MoveMatrixCell;
   left: MoveMatrixCell;
@@ -232,12 +228,12 @@ type RawMoveMatrix = {
 };
 
 type MoveAtlas = {
-  king: RawMoveMatrix;
-  queen: RawMoveMatrix;
-  bishop: RawMoveMatrix;
-  rook: RawMoveMatrix;
-  knight: RawMoveMatrix;
-  pawn: RawMoveMatrix;
+  king: MoveMatrix;
+  queen: MoveMatrix;
+  bishop: MoveMatrix;
+  rook: MoveMatrix;
+  knight: MoveMatrix;
+  pawn: MoveMatrix;
 };
 
 const pieceMovesAtlas: MoveAtlas = {
