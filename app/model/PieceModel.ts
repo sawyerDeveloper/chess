@@ -2,8 +2,11 @@ import { PieceColor, PieceType } from '../components/PieceView';
 import { GridCell, ZoneID } from './GridModel';
 
 export default class PieceModel {
+  //  Track individual pieces movements
   private pieces: PieceModelType[] = [];
+  //  Reference to the main grid
   private grid: GridCell[];
+
   constructor(grid: GridCell[]) {
     console.info('PieceModel');
     this.grid = grid;
@@ -25,7 +28,7 @@ export default class PieceModel {
    * Sequence:
    * 1. Establish the x,y of the landingZone cell of the pressed piece.
    * 2. Gets that piece's possible moves.
-   * 3. Interpolate the moves against the grid system and Algerbraic Notation.
+   * 3. Interpolate the moves against the grid system and return them in Algerbraic Notation.
    * 4. Remove moves depending on if the moves are not aligned with open/attackable zones.
    * 5. Return moves that are left.
    *
@@ -61,8 +64,11 @@ export default class PieceModel {
     color: PieceColor,
     start: StartingPosition
   ): ZoneID[] {
+    //  Go through all directions of moves for a piece by iterating
+    //  over the moves listed in a RawMoveMatrix(up, down, etc)
     const allDirections = Object.keys(moves).map((direction) => {
       const direct = direction as Direction;
+      //  Get moves per individual direction
       return this.processMoveDirection(direct, moves[direct], color, start);
     });
     return allDirections.flat();
@@ -91,8 +97,30 @@ export default class PieceModel {
     color: PieceColor,
     start: StartingPosition
   ): ZoneID[] {
-    console.log(moves);
+    console.log('processMoveDirection ', moves[0], moves[1]);
+    //  1.
+    let fullRange = moves[0];
+    const rule = moves[1];
+    if (rule) {
+      switch (rule.type) {
+        case 'attack':
+          console.log('attack');
+          break;
+        case 'castle':
+          console.log('castle');
+          break;
+        case 'first':
+          console.log('first');
+          fullRange = rule.range;
+          break;
+        case 'second':
+          console.log('second');
+          break;
+      }
+    }
+    
     let newMoves: ZoneID[] = [];
+
     if (direction === 'up') {
       newMoves = ['a3', 'a4'];
     }
@@ -135,7 +163,9 @@ export type MoveMatrix = {
   upRight: string[];
 };
 
-type MoveMatrixCell = [number] | [number, object];
+type RuleType = 'castle' | 'attack' | 'first' | 'second';
+type Rule = { type: RuleType; range: number };
+type MoveMatrixCell = [number] | [number, Rule];
 
 type RawMoveMatrix = {
   up: MoveMatrixCell;
@@ -161,11 +191,11 @@ const pieceMovesAtlas: MoveAtlas = {
   king: {
     up: [1],
     upLeft: [1],
-    left: [1, { castle: 2 }],
+    left: [1, { type: 'castle', range: 2 }],
     downLeft: [1],
     down: [1],
     downRight: [1],
-    right: [1, { castle: 2 }],
+    right: [1, { type: 'castle', range: 2 }],
     upRight: [1],
   },
   queen: {
@@ -191,31 +221,31 @@ const pieceMovesAtlas: MoveAtlas = {
   rook: {
     up: [7],
     upLeft: [0],
-    left: [7, { castle: 2 }],
+    left: [7, { type: 'castle', range: 2 }],
     downLeft: [0],
     down: [7],
     downRight: [0],
-    right: [7, { castle: 2 }],
+    right: [7, { type: 'castle', range: 2 }],
     upRight: [0],
   },
   knight: {
     up: [2],
-    upLeft: [0, { second: 1 }],
+    upLeft: [0, { type: 'second', range: 1 }],
     left: [2],
-    downLeft: [0, { second: 1 }],
+    downLeft: [0, { type: 'second', range: 1 }],
     down: [2],
-    downRight: [0, { second: 1 }],
+    downRight: [0, { type: 'second', range: 1 }],
     right: [2],
-    upRight: [0, { second: 1 }],
+    upRight: [0, { type: 'second', range: 1 }],
   },
   pawn: {
-    up: [1, { first: 2 }],
-    upLeft: [0, { attack: 1 }],
+    up: [1, { type: 'first', range: 2 }],
+    upLeft: [0, { type: 'attack', range: 1 }],
     left: [0],
     downLeft: [0],
     down: [0],
     downRight: [0],
     right: [0],
-    upRight: [0, { attack: 1 }],
+    upRight: [0, { type: 'attack', range: 1 }],
   },
 };
