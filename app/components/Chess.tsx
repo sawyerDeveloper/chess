@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     paddingRight: 50,
     paddingTop: 10,
     paddingBottom: 30,
-    minHeight:720,
-    maxHeight:720
+    minHeight: 720,
+    maxHeight: 720,
   },
 });

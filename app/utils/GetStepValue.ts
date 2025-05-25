@@ -1,4 +1,4 @@
-import { Direction } from '../model/GridModel';
+import { Direction } from '../types/GridTypes';
 
 /**
  * Returns a set of values that direct the change along an x and y axis

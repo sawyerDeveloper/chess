@@ -1,4 +1,5 @@
-import GridModel, { GridCell, ZoneID } from './GridModel';
+import { GridCell, ZoneID } from '../types/GridTypes';
+import GridModel from './GridModel';
 import PieceModel from './PieceModel';
 
 export default class ChessModel {

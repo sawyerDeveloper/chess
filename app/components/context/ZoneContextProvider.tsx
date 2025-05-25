@@ -10,14 +10,14 @@ interface ZoneContextProviderProps {
 
 const ZoneContextProvider = ({ children, model }: ZoneContextProviderProps) => {
   const [pressedZone, setPressedZone] = useState<ZoneID>('');
-  const [availableZones, setAvailableZones] = useState<ZoneID[]>([])
+  const [availableZones, setAvailableZones] = useState<ZoneID[]>([]);
 
   //  TODO implement a decoupled state approach to this method and its passing
   const onPress = useCallback(
     (zone: ZoneID) => {
       if (zone === pressedZone) {
         setPressedZone('');
-        setAvailableZones([])
+        setAvailableZones([]);
         return;
       }
 
@@ -25,7 +25,7 @@ const ZoneContextProvider = ({ children, model }: ZoneContextProviderProps) => {
         setAvailableZones(model.getAvailableZones(zone));
         setPressedZone(zone);
       } else {
-        setAvailableZones([])
+        setAvailableZones([]);
         model.validateMove(pressedZone!, zone);
         setPressedZone('');
       }

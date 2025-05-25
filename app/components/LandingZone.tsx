@@ -1,9 +1,9 @@
-import { Pressable, StyleSheet } from 'react-native';
-import PieceView from './Piece';
 import { memo, useContext } from 'react';
+import { Pressable, StyleSheet } from 'react-native';
 import ZoneContext from './context/ZoneContext';
-import { ZoneID } from '../types/GridTypes';
+import PieceView from './Piece';
 import ZoneLabel from './ui/ZoneLabel';
+import { ZoneID } from '../types/GridTypes';
 
 export enum LandingZoneColors {
   WHITE = 'lightgrey',
