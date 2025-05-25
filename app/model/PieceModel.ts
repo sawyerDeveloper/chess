@@ -27,12 +27,11 @@ export default class PieceModel {
 
   /**
    * Returns an array of possible moves for a piece.
-   * Sequence:
-   * 1. Establish the x,y of the landingZone cell of the pressed piece.
+   *
+   * 1. Establish the x,y of the landingZone cell of the selected piece.
    * 2. Gets that piece's possible moves.
-   * 3. Interpolate the moves against the grid system and return them in Algerbraic Notation.
-   * 4. Remove moves depending on if the moves are not aligned with open/attackable zones.
-   * 5. Return moves that are left.
+   * 3. Remove moves that aren't legal.
+   * 3. Return remaining moves.
    *
    * @param type PieceType
    * @param zone string
@@ -45,21 +44,19 @@ export default class PieceModel {
     //  2.
     const rawMoves = pieceMovesAtlas[type] as RawMoveMatrix;
     //  3.
-    const newMoves: ZoneID[] =
-      //  4.
-      this.processRawMoves(rawMoves, color, start);
-    //  5.
+    const newMoves: ZoneID[] = this.processRawMoves(rawMoves, color, start);
+    //  4.
     return newMoves;
   }
 
   /**
    * Starts with the moves for a particular piece and runs them against
-   * the actual grid from the starting point of the selected piece.
+   * the actual grid from it's starting point.
    *
    * @param moves
    * @param color
    * @param start
-   * @returns
+   * @returns ZoneID[]
    */
   private processRawMoves(
     moves: RawMoveMatrix,
@@ -73,25 +70,41 @@ export default class PieceModel {
       //  Get moves per individual direction
       return this.processMoveDirection(direct, moves[direct], color, start);
     });
-    return allDirections.flat();
+    return this.validateMoves(allDirections.flat());
+  }
+
+  /**
+   * Returns only legal moves.
+   *
+   * 1. 'Attempt' each move against the grid from the start point
+   * 2. If the move is to an empty zone, keep it
+   * 3. If the move is to a zone with an opponent's piece, keep it
+   * 4. If the move is to zone with same color piece, toss it
+   * 5. If the move is to a zone that is off the board, toss it
+   * 6. Return each remaining move.
+   *
+   * @param moves
+   * @returns ZoneID[]
+   */
+  private validateMoves(moves: ZoneID[]): ZoneID[] {
+    let validatedMoves = ['' as ZoneID];
+
+    console.log(moves);
+    return moves;
   }
 
   /**
    * Returns the possible moves per one direction from a MoveMatrix
    *
-   * 1. Establish each possible move ranges from the MoveMatrixCell
-   * 2. 'Attempt' each move against the grid from the start point
-   * 3. If the move is to an empty zone, keep it
-   * 4. If the move is to a zone with an opponent's piece, keep it
-   * 5. If the move is to zone with same color piece, toss it
-   * 6. If the move is to a zone that is off the board, toss it
-   * 7. Return each move that is legal
+   * 1. Establish each possible move ranges from the MoveMatrixCell including rules
+   * 2. Iterate over each direction possibility against the number of range
+   * 3. Return all possible moves for this piece
    *
    * @param direction Direction
    * @param moves MoveMatrixCell
    * @param color PieceColor
    * @param start StartingPosition
-   * @returns MoveMatrix
+   * @returns ZoneID[]
    */
   private processMoveDirection(
     direction: Direction,
@@ -105,53 +118,24 @@ export default class PieceModel {
     if (rule) {
       switch (rule.type) {
         case 'attack':
-          //console.log('attack');
           break;
         case 'castle':
-          //console.log('castle');
           break;
         case 'first':
-          console.log('first');
           //  If pawn hasn't moved yet, add more range
           fullRange = rule.range;
           break;
         case 'second':
           //  Knight has a second move along a different axis
-          //console.log('second');
           break;
       }
     }
 
     //  2.
     let nextPosition: StartingPosition = { x: start.x, y: start.y + 1 };
-    let stepValue: StartingPosition;
+    let stepValue: StartingPosition = this.getStepValue(direction);
     let newMoves: ZoneID[] = [];
-    switch (direction) {
-      case 'up':
-        stepValue = { x: 0, y: 1 };
-        break;
-      case 'down':
-        stepValue = { x: 0, y: -1 };
-        break;
-      case 'left':
-        stepValue = { x: -1, y: 0 };
-        break;
-      case 'right':
-        stepValue = { x: 1, y: 0 };
-        break;
-      case 'upLeft':
-        stepValue = { x: -1, y: 1 };
-        break;
-      case 'downLeft':
-        stepValue = { x: -1, y: -1 };
-        break;
-      case 'downRight':
-        stepValue = { x: 1, y: -1 };
-        break;
-      case 'upRight':
-        stepValue = { x: 1, y: 1 };
-        break;
-    }
+
     for (let i = 0; i < fullRange; i++) {
       if (color === 'white') {
         nextPosition.x += stepValue.x;
@@ -162,7 +146,38 @@ export default class PieceModel {
       }
       newMoves.push((letters[nextPosition.x] + nextPosition.y) as ZoneID);
     }
+    //  3.
     return newMoves;
+  }
+
+  /**
+   * Returns a set of values to that direct the change along an x and y axis
+   * The value of x and y are 0, 1 or -1
+   * { x : 0 | 1 | -1 , y : 0 | 1 | -1 }
+   * example: up {x:0, y:1}
+   *
+   * @param direction
+   * @returns StartingPosition
+   */
+  private getStepValue(direction: Direction): StartingPosition {
+    switch (direction) {
+      case 'up':
+        return { x: 0, y: 1 };
+      case 'down':
+        return { x: 0, y: -1 };
+      case 'left':
+        return { x: -1, y: 0 };
+      case 'right':
+        return { x: 1, y: 0 };
+      case 'upLeft':
+        return { x: -1, y: 1 };
+      case 'downLeft':
+        return { x: -1, y: -1 };
+      case 'downRight':
+        return { x: 1, y: -1 };
+      case 'upRight':
+        return { x: 1, y: 1 };
+    }
   }
 }
 
@@ -173,18 +188,18 @@ type PieceModelType = {
   color: PieceColor;
   x: number;
   y: number;
-  history: string[];
+  history: ZoneID[];
 };
 
 export type MoveMatrix = {
-  up: string[];
-  upLeft: string[];
-  left: string[];
-  downLeft: string[];
-  down: string[];
-  downRight: string[];
-  right: string[];
-  upRight: string[];
+  up: ZoneID[];
+  upLeft: ZoneID[];
+  left: ZoneID[];
+  downLeft: ZoneID[];
+  down: ZoneID[];
+  downRight: ZoneID[];
+  right: ZoneID[];
+  upRight: ZoneID[];
 };
 
 type StartingPosition = {
