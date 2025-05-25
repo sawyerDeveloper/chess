@@ -1,4 +1,4 @@
-import { Piece } from "../types/PieceTypes";
+import { Piece } from '../types/PieceTypes';
 
 export const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
@@ -12,14 +12,14 @@ export type GridCell = {
 };
 
 export type Direction =
-| 'up'
-| 'down'
-| 'left'
-| 'right'
-| 'upLeft'
-| 'upRight'
-| 'downLeft'
-| 'downRight';
+  | 'up'
+  | 'down'
+  | 'left'
+  | 'right'
+  | 'upLeft'
+  | 'upRight'
+  | 'downLeft'
+  | 'downRight';
 
 export type ZoneID =
   | 'a1'
@@ -87,3 +87,4 @@ export type ZoneID =
   | 'h7'
   | 'h8'
   | '';
+export default {};

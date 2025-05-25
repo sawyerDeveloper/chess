@@ -1,12 +1,12 @@
 import { StyleSheet, View } from 'react-native';
 import LandingZone, { LandingZoneColors } from './LandingZone';
-import Row from './ui/Row';
-import Column from './ui/Column';
 import { letters } from '../types/GridTypes';
 import { useContext } from 'react';
 import ZoneContext from './context/ZoneContext';
+import Row from './ui/Row';
+import Column from './ui/Column';
 
-export default function GridView() {
+export default function Grid() {
   const { model } = useContext(ZoneContext);
   const layoutZones = (column: number) => {
     let views = [];

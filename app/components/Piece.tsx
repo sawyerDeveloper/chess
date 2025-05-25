@@ -4,11 +4,11 @@ import { StyleSheet, View } from 'react-native';
 import ZoneContext from './context/ZoneContext';
 import { ZoneID } from '../types/GridTypes';
 
-interface PieceViewProps {
+interface PieceProps {
   zone: ZoneID;
 }
 
-function PieceView({ zone }: PieceViewProps) {
+function Piece({ zone }: PieceProps) {
   const { model, getPressedZone } = useContext(ZoneContext);
   const piece = model.getZone(zone)?.piece;
   const active = getPressedZone() === zone;
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(PieceView);
+export default memo(Piece);

@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import GridView from './GridView';
+import Grid from './Grid';
 import ZoneContextProvider from './context/ZoneContextProvider';
 import ChessModel from '../model/ChessModel';
 
@@ -7,7 +7,7 @@ export default function Chess() {
   return (
     <ZoneContextProvider model={new ChessModel()}>
       <View style={styles.container}>
-        <GridView />
+        <Grid />
       </View>
     </ZoneContextProvider>
   );

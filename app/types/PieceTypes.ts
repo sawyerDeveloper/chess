@@ -122,3 +122,5 @@ export const pieceMovesAtlas: MoveAtlas = {
     upRight: [0, { type: 'attack', range: 1 }],
   },
 };
+
+export default {};

@@ -1,5 +1,5 @@
 import ChessModel from '@/app/model/ChessModel';
-import { ZoneID } from '@/app/model/GridModel';
+import { ZoneID } from '@/app/types/GridTypes';
 import { createContext } from 'react';
 const ZoneContext = createContext({
   onPress: (zone: ZoneID) => {},
