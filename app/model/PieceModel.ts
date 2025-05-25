@@ -1,6 +1,6 @@
 import { PieceColor, PieceType } from '../components/PieceView';
 import getStepValue, { StepValue } from '../utils/GetStepValue';
-import { Direction, GridCell, letters, Ranges, ZoneID } from './GridModel';
+import { Direction, GridCell, letters, Ranges, ZoneID } from '../types/GridTypes';
 
 export default class PieceModel {
   //  Track individual pieces movements
