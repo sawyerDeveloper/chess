@@ -27,7 +27,6 @@ export default class ChessModel {
     if (type && color) {
       const possibleMoves = this.pieceModel.getMoves(type, color, zone);
       newMoves = possibleMoves;
-      console.log(newMoves);
     }
     return newMoves;
   }
