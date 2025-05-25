@@ -1,11 +1,13 @@
 import ChessModel from '@/app/model/ChessModel';
-import { ZoneID } from '@/app/model/GridModel';
+import { ZoneID } from '@/app/types/GridTypes';
 import { createContext } from 'react';
 const ZoneContext = createContext({
   onPress: (zone: ZoneID) => {},
-  getPressedZone: () => {''},
+  getPressedZone: (): ZoneID => {
+    return '';
+  },
   model: ChessModel.prototype,
-  availableZones: ['']
+  availableZones: [''],
 });
 
-export default ZoneContext
+export default ZoneContext;

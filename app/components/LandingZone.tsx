@@ -1,9 +1,9 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
-import PieceView from './PieceView';
 import { memo, useContext } from 'react';
+import { Pressable, StyleSheet } from 'react-native';
 import ZoneContext from './context/ZoneContext';
-import { ZoneID } from '../model/GridModel';
+import PieceView from './Piece';
 import ZoneLabel from './ui/ZoneLabel';
+import { ZoneID } from '../types/GridTypes';
 
 export enum LandingZoneColors {
   WHITE = 'lightgrey',
@@ -20,10 +20,7 @@ function LandingZone({ color, zone }: LandingZoneProps) {
   const avail = availableZones.includes(zone);
   return (
     <Pressable
-      style={[
-        styles.container,
-        { backgroundColor: avail ? 'darkgreen' : color },
-      ]}
+      style={[styles.container, { backgroundColor: avail ? '#006600' : color }]}
       onPress={() => onPress(zone)}
     >
       <ZoneLabel available={avail} zone={zone} />

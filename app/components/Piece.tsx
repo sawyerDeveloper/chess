@@ -2,31 +2,13 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { memo, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ZoneContext from './context/ZoneContext';
+import { ZoneID } from '../types/GridTypes';
 
-export enum PieceType {
-  KING = 'king',
-  QUEEN = 'queen',
-  BISHOP = 'bishop',
-  KNIGHT = 'knight',
-  ROOK = 'rook',
-  PAWN = 'pawn',
+interface PieceProps {
+  zone: ZoneID;
 }
 
-export enum PieceColor {
-  WHITE = 'white',
-  BLACK = 'black',
-}
-
-export type Piece = {
-  type: PieceType | null | undefined;
-  color: PieceColor | null | undefined;
-};
-
-interface PieceViewProps {
-  zone: string;
-}
-
-function PieceView({ zone }: PieceViewProps) {
+function Piece({ zone }: PieceProps) {
   const { model, getPressedZone } = useContext(ZoneContext);
   const piece = model.getZone(zone)?.piece;
   const active = getPressedZone() === zone;
@@ -65,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(PieceView);
+export default memo(Piece);

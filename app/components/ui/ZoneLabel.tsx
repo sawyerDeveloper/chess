@@ -1,17 +1,18 @@
-import { ZoneID } from '@/app/model/GridModel';
 import { StyleSheet, Text } from 'react-native';
+import { ZoneID } from '@/app/types/GridTypes';
 
-interface ZoneLabeProps {
+interface ZoneLabelProps {
   available: Boolean;
   zone: ZoneID;
 }
-export default function ZoneLabel({ available, zone }: ZoneLabeProps) {
+
+export default function ZoneLabel({ available, zone }: ZoneLabelProps) {
   return (
     <Text
       style={[
         styles.container,
         {
-          color: available ? 'lightgreen' : 'darkgrey',
+          color: available ? 'lightgrey' : 'darkgrey',
         },
       ]}
     >
