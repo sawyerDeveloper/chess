@@ -49,8 +49,8 @@ export default class GridModel {
 
 export const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 export type GridCell = {
-  x: Number;
-  y: Number;
+  x: number;
+  y: number;
   zone: ZoneID;
   piece: Piece;
 };

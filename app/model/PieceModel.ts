@@ -1,5 +1,5 @@
 import { PieceColor, PieceType } from '../components/PieceView';
-import { GridCell, ZoneID } from './GridModel';
+import { GridCell, letters, ZoneID } from './GridModel';
 
 export default class PieceModel {
   //  Track individual pieces movements
@@ -18,7 +18,9 @@ export default class PieceModel {
           zone: zone.zone,
           type: zone.piece.type,
           color: zone.piece.color,
-          moves: [],
+          x: zone.x,
+          y: zone.y,
+          history: [],
         } as PieceModelType;
       });
   }
@@ -97,59 +99,81 @@ export default class PieceModel {
     color: PieceColor,
     start: StartingPosition
   ): ZoneID[] {
-    console.log('processMoveDirection ', moves[0], moves[1]);
     //  1.
     let fullRange = moves[0];
     const rule = moves[1];
     if (rule) {
       switch (rule.type) {
         case 'attack':
-          console.log('attack');
+          //console.log('attack');
           break;
         case 'castle':
-          console.log('castle');
+          //console.log('castle');
           break;
         case 'first':
           console.log('first');
+          //  If pawn hasn't moved yet, add more range
           fullRange = rule.range;
           break;
         case 'second':
-          console.log('second');
+          //  Knight has a second move along a different axis
+          //console.log('second');
           break;
       }
     }
-    
+
+    //  2.
+    let nextPosition: StartingPosition = { x: start.x, y: start.y + 1 };
+    let stepValue: StartingPosition;
     let newMoves: ZoneID[] = [];
-
-    if (direction === 'up') {
-      newMoves = ['a3', 'a4'];
+    switch (direction) {
+      case 'up':
+        stepValue = { x: 0, y: 1 };
+        break;
+      case 'down':
+        stepValue = { x: 0, y: -1 };
+        break;
+      case 'left':
+        stepValue = { x: -1, y: 0 };
+        break;
+      case 'right':
+        stepValue = { x: 1, y: 0 };
+        break;
+      case 'upLeft':
+        stepValue = { x: -1, y: 1 };
+        break;
+      case 'downLeft':
+        stepValue = { x: -1, y: -1 };
+        break;
+      case 'downRight':
+        stepValue = { x: 1, y: -1 };
+        break;
+      case 'upRight':
+        stepValue = { x: 1, y: 1 };
+        break;
     }
-
+    for (let i = 0; i < fullRange; i++) {
+      if (color === 'white') {
+        nextPosition.x += stepValue.x;
+        nextPosition.y += stepValue.y;
+      } else {
+        nextPosition.x -= stepValue.x;
+        nextPosition.y -= stepValue.y;
+      }
+      newMoves.push((letters[nextPosition.x] + nextPosition.y) as ZoneID);
+    }
     return newMoves;
   }
 }
-
-type StartingPosition = {
-  x: Number;
-  y: Number;
-};
-
-type Direction =
-  | 'up'
-  | 'down'
-  | 'left'
-  | 'right'
-  | 'upLeft'
-  | 'upRight'
-  | 'downLeft'
-  | 'downRight';
 
 type PieceModelType = {
   id: number;
   zone: string;
   type: PieceType;
   color: PieceColor;
-  moves: string[];
+  x: number;
+  y: number;
+  history: string[];
 };
 
 export type MoveMatrix = {
@@ -163,6 +187,20 @@ export type MoveMatrix = {
   upRight: string[];
 };
 
+type StartingPosition = {
+  x: number;
+  y: number;
+};
+
+type Direction =
+  | 'up'
+  | 'down'
+  | 'left'
+  | 'right'
+  | 'upLeft'
+  | 'upRight'
+  | 'downLeft'
+  | 'downRight';
 type RuleType = 'castle' | 'attack' | 'first' | 'second';
 type Rule = { type: RuleType; range: number };
 type MoveMatrixCell = [number] | [number, Rule];
