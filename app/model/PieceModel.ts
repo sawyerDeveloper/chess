@@ -1,5 +1,6 @@
 import { PieceColor, PieceType } from '../components/PieceView';
-import { GridCell, letters, ZoneID } from './GridModel';
+import getStepValue, { StepValue } from '../utils/GetStepValue';
+import { Direction, GridCell, letters, Ranges, ZoneID } from './GridModel';
 
 export default class PieceModel {
   //  Track individual pieces movements
@@ -40,7 +41,7 @@ export default class PieceModel {
   getMoves(type: PieceType, color: PieceColor, zone: string): ZoneID[] {
     //  1.
     const cell = this.grid.filter((cell) => cell.zone == zone)[0];
-    const start: StartingPosition = { x: cell.x, y: cell.y };
+    const start: Position = { x: cell.x, y: cell.y };
     //  2.
     const rawMoves = pieceMovesAtlas[type] as MoveMatrix;
     //  3.
@@ -61,7 +62,7 @@ export default class PieceModel {
   private processRawMoves(
     moves: MoveMatrix,
     color: PieceColor,
-    start: StartingPosition
+    start: Position
   ): ZoneID[] {
     //  Go through all directions of moves for a piece by iterating
     //  over the moves listed in a RawMoveMatrix(up, down, etc)
@@ -83,14 +84,14 @@ export default class PieceModel {
    * @param direction Direction
    * @param moves MoveMatrixCell
    * @param color PieceColor
-   * @param start StartingPosition
+   * @param start Position
    * @returns ZoneID[]
    */
   private processMoveDirection(
     direction: Direction,
     moves: MoveMatrixCell,
     color: PieceColor,
-    start: StartingPosition
+    start: Position
   ): ZoneID[] {
     //  1.
     let fullRange = moves[0];
@@ -112,8 +113,8 @@ export default class PieceModel {
     }
 
     //  2.
-    let nextPosition: StartingPosition = { x: start.x, y: start.y + 1 };
-    let stepValue: StartingPosition = this.getStepValue(direction);
+    let nextPosition: Position = { x: start.x, y: start.y + 1 };
+    let stepValue: StepValue = getStepValue(direction);
     let newMoves: ZoneID[] = [];
 
     for (let i = 0; i < fullRange; i++) {
@@ -149,41 +150,7 @@ export default class PieceModel {
     console.log(moves);
     return moves;
   }
-
-  /**
-   * Returns a set of values to that direct the change along an x and y axis
-   * The value of x and y are 0, 1 or -1
-   * { x : 0 | 1 | -1 , y : 0 | 1 | -1 }
-   * example: up {x:0, y:1}
-   *
-   * @param direction
-   * @returns StartingPosition
-   */
-  private getStepValue(direction: Direction): StepValue {
-    switch (direction) {
-      case 'up':
-        return { x: 0, y: 1 };
-      case 'down':
-        return { x: 0, y: -1 };
-      case 'left':
-        return { x: -1, y: 0 };
-      case 'right':
-        return { x: 1, y: 0 };
-      case 'upLeft':
-        return { x: -1, y: 1 };
-      case 'downLeft':
-        return { x: -1, y: -1 };
-      case 'downRight':
-        return { x: 1, y: -1 };
-      case 'upRight':
-        return { x: 1, y: 1 };
-    }
-  }
 }
-
-type StepValueRange = 0 | 1 | -1;
-
-type StepValue = { x: StepValueRange; y: StepValueRange };
 
 type PieceModelType = {
   id: number;
@@ -195,26 +162,14 @@ type PieceModelType = {
   history: ZoneID[];
 };
 
-type StartingPosition = {
+type Position = {
   x: number;
   y: number;
 };
 
-type Direction =
-  | 'up'
-  | 'down'
-  | 'left'
-  | 'right'
-  | 'upLeft'
-  | 'upRight'
-  | 'downLeft'
-  | 'downRight';
-
 type RuleType = 'castle' | 'attack' | 'first' | 'second';
 
 type Rule = { type: RuleType; range: 1 | 2 };
-
-type Ranges = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 type MoveMatrixCell = [Ranges] | [Ranges, Rule];
 
