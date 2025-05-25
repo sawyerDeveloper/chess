@@ -17,6 +17,7 @@ const ZoneContextProvider = ({ children, model }: ZoneContextProviderProps) => {
     (zone: ZoneID) => {
       if (zone === pressedZone) {
         setPressedZone('');
+        setAvailableZones([])
         return;
       }
 

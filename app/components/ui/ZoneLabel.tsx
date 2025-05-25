@@ -11,7 +11,7 @@ export default function ZoneLabel({ available, zone }: ZoneLabeProps) {
       style={[
         styles.container,
         {
-          color: available ? 'lightgreen' : 'darkgrey',
+          color: available ? 'lightgrey' : 'darkgrey',
         },
       ]}
     >

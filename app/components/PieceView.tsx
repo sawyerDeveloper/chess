@@ -2,6 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { memo, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ZoneContext from './context/ZoneContext';
+import { ZoneID } from '../model/GridModel';
 
 export enum PieceType {
   KING = 'king',
@@ -23,7 +24,7 @@ export type Piece = {
 };
 
 interface PieceViewProps {
-  zone: string;
+  zone: ZoneID;
 }
 
 function PieceView({ zone }: PieceViewProps) {

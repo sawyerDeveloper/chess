@@ -20,10 +20,7 @@ function LandingZone({ color, zone }: LandingZoneProps) {
   const avail = availableZones.includes(zone);
   return (
     <Pressable
-      style={[
-        styles.container,
-        { backgroundColor: avail ? 'darkgreen' : color },
-      ]}
+      style={[styles.container, { backgroundColor: avail ? '#006600' : color }]}
       onPress={() => onPress(zone)}
     >
       <ZoneLabel available={avail} zone={zone} />
