@@ -133,7 +133,10 @@ export default class PieceModel {
         nextPosition.x -= stepValue.x;
         nextPosition.y -= stepValue.y;
       }
-      newMoves.push((letters[nextPosition.x] + nextPosition.y) as ZoneID);
+      //  No moves off board
+      if (nextPosition.y > 0 && nextPosition.y < 8) {
+        newMoves.push((letters[nextPosition.x] + nextPosition.y) as ZoneID);
+      }
     }
     //  3.
     return newMoves;
@@ -142,20 +145,19 @@ export default class PieceModel {
   /**
    * Returns only legal moves.
    *
-   * 1. 'Attempt' each move against the grid from the start point
-   * 2. If the move is to an empty zone, keep it
-   * 3. If the move is to a zone with an opponent's piece, keep it
-   * 4. If the move is to zone with same color piece, toss it
-   * 5. If the move is to a zone that is off the board, toss it
-   * 6. Return each remaining move.
+   * Legal Moves:
+   * - If the move is to a zone that is off the board, toss it
+   * - If the move is to an empty zone, keep it
+   * - If the move is to a zone with an opponent's piece, keep it
+   * - If the move is to zone with same color piece, toss it
    *
    * @param moves
    * @returns ZoneID[]
    */
   private validateMoves(moves: ZoneID[]): ZoneID[] {
     let validatedMoves = ['' as ZoneID];
+    validatedMoves = moves.filter((move) => move as ZoneID);
 
-    console.log(moves);
-    return moves;
+    return validatedMoves;
   }
 }
