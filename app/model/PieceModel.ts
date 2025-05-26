@@ -107,8 +107,10 @@ export default class PieceModel {
     if (rule) {
       switch (rule.type) {
         case 'attack':
+          //  Only pawns have an attack that is different
           break;
         case 'castle':
+          //  Check if each piece involved in the castle have moved yet
           break;
         case 'first':
           //  If pawn hasn't moved yet, add more range
@@ -134,7 +136,7 @@ export default class PieceModel {
         nextPosition.y -= stepValue.y;
       }
       //  No moves off board
-      if (nextPosition.y > 0 && nextPosition.y < 8) {
+      if (nextPosition.y > 0 && nextPosition.y < 9) {
         newMoves.push((letters[nextPosition.x] + nextPosition.y) as ZoneID);
       }
     }
@@ -150,6 +152,7 @@ export default class PieceModel {
    * - If the move is to an empty zone, keep it
    * - If the move is to a zone with an opponent's piece, keep it
    * - If the move is to zone with same color piece, toss it
+   * - If the move is blocked by a piece and this piece is not a knight, toss it and remaining range
    *
    * @param moves
    * @returns ZoneID[]
@@ -157,6 +160,8 @@ export default class PieceModel {
   private validateMoves(moves: ZoneID[]): ZoneID[] {
     let validatedMoves = ['' as ZoneID];
     validatedMoves = moves.filter((move) => move as ZoneID);
+
+
 
     return validatedMoves;
   }
