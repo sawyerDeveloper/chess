@@ -54,6 +54,7 @@ export default class PieceModel {
     const rawMoves = pieceMovesAtlas[type] as MoveMatrix;
     //  3.
     const newMoves: ZoneID[] = this.processRawMoves(rawMoves, color, start);
+    console.log(newMoves)
     //  4.
     return newMoves;
   }
@@ -79,7 +80,7 @@ export default class PieceModel {
       //  Get moves per individual direction
       return this.processMoveDirection(direct, moves[direct], color, start);
     });
-    return this.validateMoves(allDirections.flat());
+    return allDirections.flat()//this.validateMoves(allDirections.flat(), color, start);
   }
 
   /**
@@ -87,7 +88,14 @@ export default class PieceModel {
    *
    * 1. Establish each possible move ranges from the MoveMatrixCell including rules
    * 2. Iterate over each direction possibility against the number of range
-   * 3. Return all possible moves for this piece
+   * 3. Return all possible legit moves for this piece
+   * 
+   * Legal Moves:
+   * - If the move is to an empty zone, keep it
+   * - If the move is blocked by a piece and this piece is not a knight, toss it and remaining range
+   * - If the move is to a zone that is off the board, toss it
+   * - If the move is to a zone with an opponent's piece, keep it
+   * - If the move is to zone with same color piece, toss it
    *
    * @param direction Direction
    * @param moves MoveMatrixCell
@@ -135,34 +143,23 @@ export default class PieceModel {
         nextPosition.x -= stepValue.x;
         nextPosition.y -= stepValue.y;
       }
+      //  ID a zone to move to
+      const move = (letters[nextPosition.x] + nextPosition.y) as ZoneID
+
       //  No moves off board
-      if (nextPosition.y > 0 && nextPosition.y < 9) {
-        newMoves.push((letters[nextPosition.x] + nextPosition.y) as ZoneID);
+      if (nextPosition.y < 1 && nextPosition.y < 8) {
+       break
       }
+
+      //  Must be a legit ZoneID
+      if(!<ZoneID>move){
+        break
+      }
+
+      //  Ok it is legit
+      newMoves.push(move)
     }
     //  3.
     return newMoves;
-  }
-
-  /**
-   * Returns only legal moves.
-   *
-   * Legal Moves:
-   * - If the move is to a zone that is off the board, toss it
-   * - If the move is to an empty zone, keep it
-   * - If the move is to a zone with an opponent's piece, keep it
-   * - If the move is to zone with same color piece, toss it
-   * - If the move is blocked by a piece and this piece is not a knight, toss it and remaining range
-   *
-   * @param moves
-   * @returns ZoneID[]
-   */
-  private validateMoves(moves: ZoneID[]): ZoneID[] {
-    let validatedMoves = ['' as ZoneID];
-    validatedMoves = moves.filter((move) => move as ZoneID);
-
-
-
-    return validatedMoves;
   }
 }
