@@ -7,7 +7,7 @@ export default function RootLayout() {
         options={{
           title: 'Chess',
           headerTitleAlign: 'center',
-          headerTitleStyle: { fontSize: 15 },
+          headerTitleStyle: { fontSize: 25 },
         }}
         name='index'
       />

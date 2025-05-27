@@ -2,6 +2,7 @@ import { Direction } from '../types/GridTypes';
 
 /**
  * Returns a set of values that direct the change along an x and y axis
+ * during the pre-render phase of a game loop for an object.
  *
  * The value of x and y are 0, 1 or -1
  * { x : 0 | 1 | -1 , y : 0 | 1 | -1 }
