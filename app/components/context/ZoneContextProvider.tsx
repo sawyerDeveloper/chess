@@ -1,6 +1,6 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import ZoneContext from './ZoneContext';
-import ChessModel from '@/app/model/ChessModel';
+import ChessModel from '@/app/models/ChessModel';
 import { ZoneID } from '@/app/types/GridTypes';
 
 interface ZoneContextProviderProps {

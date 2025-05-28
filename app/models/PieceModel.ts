@@ -6,9 +6,17 @@ import {
   pieceMovesAtlas,
   MoveMatrix,
   MoveMatrixCell,
+  Rule,
+  RuleRange,
 } from '../types/PieceTypes';
 import getStepValue, { StepValue } from '../utils/GetStepValue';
-import { Direction, GridCell, letters, ZoneID } from '../types/GridTypes';
+import {
+  Direction,
+  GridCell,
+  letters,
+  GridRange,
+  ZoneID,
+} from '../types/GridTypes';
 
 export default class PieceModel {
   //  Track individual pieces movements
@@ -54,7 +62,6 @@ export default class PieceModel {
     const rawMoves = pieceMovesAtlas[type] as MoveMatrix;
     //  3.
     const newMoves: ZoneID[] = this.processRawMoves(rawMoves, color, start);
-    console.log(newMoves)
     //  4.
     return newMoves;
   }
@@ -80,21 +87,21 @@ export default class PieceModel {
       //  Get moves per individual direction
       return this.processMoveDirection(direct, moves[direct], color, start);
     });
-    return allDirections.flat()//this.validateMoves(allDirections.flat(), color, start);
+    return allDirections.flat();
   }
 
   /**
    * Returns the possible moves per one direction from a MoveMatrixCell
    *
-   * 1. Establish each possible move ranges from the MoveMatrixCell including rules
+   * 1. Establish each possible move range from the MoveMatrixCell including rules
    * 2. Iterate over each direction possibility against the number of range
-   * 3. Return all possible legit moves for this piece
-   * 
+   * 3. Return all possible legal moves for this piece
+   *
    * Legal Moves:
    * - If the move is to an empty zone, keep it
+   * - If the move is to a zone with an opponent's piece, keep it
    * - If the move is blocked by a piece and this piece is not a knight, toss it and remaining range
    * - If the move is to a zone that is off the board, toss it
-   * - If the move is to a zone with an opponent's piece, keep it
    * - If the move is to zone with same color piece, toss it
    *
    * @param direction Direction
@@ -110,25 +117,9 @@ export default class PieceModel {
     start: Position
   ): ZoneID[] {
     //  1.
-    let fullRange = moves[0];
-    const rule = moves[1];
-    if (rule) {
-      switch (rule.type) {
-        case 'attack':
-          //  Only pawns have an attack that is different
-          break;
-        case 'castle':
-          //  Check if each piece involved in the castle have moved yet
-          break;
-        case 'first':
-          //  If pawn hasn't moved yet, add more range
-          fullRange = rule.range;
-          break;
-        case 'second':
-          //  Knight has a second move along a different axis
-          break;
-      }
-    }
+    let fullRange: GridRange = moves[0];
+    let ruleRange: RuleRange = this.processRule(moves[1]);
+    fullRange = ruleRange ? ruleRange : fullRange;
 
     //  2.
     let nextPosition: Position = { x: start.x, y: start.y + 1 };
@@ -144,22 +135,43 @@ export default class PieceModel {
         nextPosition.y -= stepValue.y;
       }
       //  ID a zone to move to
-      const move = (letters[nextPosition.x] + nextPosition.y) as ZoneID
+      const move = (letters[nextPosition.x] + nextPosition.y) as ZoneID;
 
       //  No moves off board
       if (nextPosition.y < 1 && nextPosition.y < 8) {
-       break
+        break;
       }
 
       //  Must be a legit ZoneID
-      if(!<ZoneID>move){
-        break
+      if (!(<ZoneID>move)) {
+        break;
       }
 
-      //  Ok it is legit
-      newMoves.push(move)
+      //  Ok it is legal
+      newMoves.push(move);
     }
     //  3.
     return newMoves;
+  }
+
+  private processRule(rule: Rule | undefined): RuleRange {
+    let ruleRange: RuleRange = 0;
+    if (rule) {
+      switch (rule.type) {
+        case 'attack':
+          //  Only pawns have an attack that is different
+          break;
+        case 'castle':
+          //  Check if each piece involved in the castle have moved yet
+          break;
+        case 'first':
+          //  If pawn hasn't moved yet, add more range
+          ruleRange = rule.range;
+        case 'second':
+          //  Knight has a second move along a different axis
+          break;
+      }
+    }
+    return ruleRange;
   }
 }

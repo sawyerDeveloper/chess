@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import Grid from './Grid';
 import ZoneContextProvider from './context/ZoneContextProvider';
-import ChessModel from '../model/ChessModel';
+import ChessModel from '../models/ChessModel';
 
 export default function Chess() {
   return (
