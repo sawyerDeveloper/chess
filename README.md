@@ -9,7 +9,7 @@ Coding this from scratch:
 - I can explain the story of each commit and why I made those choices.
 - I can turn my original code into a library or a product and I own the copyright.
 
-<img width="698" alt="Screenshot 2025-04-16 at 5 10 15 PM" src="https://github.com/user-attachments/assets/91b781a6-a930-4afe-bc96-9d255c0d3d68" />
+<img width="695" alt="Screenshot 2025-05-29 at 3 05 28 PM" src="https://github.com/user-attachments/assets/7627d7c6-f3e2-46a6-bef0-d88806ae305e" />
 
 ## Get started
 
