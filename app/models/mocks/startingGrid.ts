@@ -220,7 +220,7 @@ const startingGrid = [
     y: 0,
     zone: 'd1',
     piece: {
-      type: 'queen',
+      type: 'king',
       color: 'white',
     },
   },
@@ -283,7 +283,7 @@ const startingGrid = [
     y: 7,
     zone: 'd8',
     piece: {
-      type: 'queen',
+      type: 'king',
       color: 'black',
     },
   },
@@ -292,7 +292,7 @@ const startingGrid = [
     y: 0,
     zone: 'e1',
     piece: {
-      type: 'king',
+      type: 'queen',
       color: 'white',
     },
   },
@@ -355,7 +355,7 @@ const startingGrid = [
     y: 7,
     zone: 'e8',
     piece: {
-      type: 'king',
+      type: 'queen',
       color: 'black',
     },
   },
