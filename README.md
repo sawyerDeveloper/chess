@@ -9,7 +9,6 @@ Coding this from scratch:
 - The joy of seeing it come to life is palpable and stays with me.
 - The wisdom I've gained so far is priceless.
 - I can explain the story of each commit and why I made those choices.
-- Creative control with no limitations.
 
 <img width="695" alt="Screenshot 2025-05-29 at 3 05 28 PM" src="https://github.com/user-attachments/assets/7627d7c6-f3e2-46a6-bef0-d88806ae305e" />
 
