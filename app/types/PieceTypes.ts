@@ -1,4 +1,4 @@
-import { Ranges, ZoneID } from './GridTypes';
+import { GridRange, ZoneID } from './GridTypes';
 
 export enum PieceType {
   KING = 'king',
@@ -36,9 +36,11 @@ export type Position = {
 
 type RuleType = 'castle' | 'attack' | 'first' | 'second';
 
-type Rule = { type: RuleType; range: 1 | 2 };
+export type RuleRange = 1 | 2 | 0
 
-export type MoveMatrixCell = [Ranges] | [Ranges, Rule];
+export type Rule = { type: RuleType; range: RuleRange };
+
+export type MoveMatrixCell = [GridRange] | [GridRange, Rule];
 
 export type MoveMatrix = {
   up: MoveMatrixCell;

@@ -57,7 +57,7 @@ describe('GridModel', () => {
       const zone = model.getZone('d8');
       expect(zone?.zone).toBe('d8');
       expect(zone?.piece.color).toBe('black')
-      expect(zone?.piece.type).toBe('queen')
+      expect(zone?.piece.type).toBe('king')
       expect(zone?.x).toBe(3)
       expect(zone?.y).toBe(7)
     });
