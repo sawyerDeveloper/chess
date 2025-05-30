@@ -9,7 +9,7 @@ import { Direction } from '../types/GridTypes';
  *
  * example: up {x:0, y:1}
  *
- * @param direction
+ * @param direction Direction
  * @returns StepValue
  */
 export default function getStepValue(direction: Direction): StepValue {
