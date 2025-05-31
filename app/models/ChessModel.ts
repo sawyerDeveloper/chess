@@ -39,6 +39,7 @@ export default class ChessModel {
       return false;
     }
     this.gridModel.updateGrid(start, end);
+    this.pieceModel.makeMove(start, end)
     return true;
   }
 }
