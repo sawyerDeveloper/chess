@@ -16,7 +16,7 @@ export enum PieceColor {
 
 export type PieceModelType = {
   id: number;
-  zone: string;
+  zone: ZoneID;
   type: PieceType;
   color: PieceColor;
   x: number;

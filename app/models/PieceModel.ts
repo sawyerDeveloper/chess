@@ -42,6 +42,26 @@ export default class PieceModel {
       });
   }
 
+  getPiece(zoneID: ZoneID): PieceModelType {
+    return this.pieces.filter((piece) => piece.zone == zoneID)[0];
+  }
+
+  makeMove(fromZoneID: ZoneID, toZoneID: ZoneID): void {
+    //  If there is an opponent piece
+    const opponentPiece: PieceModelType | undefined = this.getPiece(toZoneID);
+    const fromPiece: PieceModelType = this.getPiece(fromZoneID);
+
+    //  Set history
+    fromPiece.history.push(toZoneID);
+
+    //  Remove the opponent piece from the board and update history for that piece
+    if (opponentPiece) {
+      opponentPiece.zone = '';
+      opponentPiece.history.push('');
+    }
+    console.log(this.pieces)
+  }
+
   /**
    * Returns an array of possible moves for a piece.
    *
@@ -166,6 +186,7 @@ export default class PieceModel {
           break;
         case 'first':
           //  If pawn hasn't moved yet, add more range
+          //  TODO How do we know what the ZoneID or ID of the piec eis here?
           ruleRange = rule.range;
         case 'second':
           //  Knight has a second move along a different axis
