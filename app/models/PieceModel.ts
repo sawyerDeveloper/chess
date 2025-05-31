@@ -42,10 +42,22 @@ export default class PieceModel {
       });
   }
 
+  /**
+   * Returns the piece data in the PieceModel Pieces array based on ZoneID
+   * 
+   * @param zoneID ZoneID
+   * @returns PieceModelType
+   */
   getPiece(zoneID: ZoneID): PieceModelType {
     return this.pieces.filter((piece) => piece.zone == zoneID)[0];
   }
 
+  /**
+   * Updates the pieces Data Model to accoutn for changes in individual pieces's data.
+   * 
+   * @param fromZoneID ZoneID
+   * @param toZoneID ZoneID
+   */
   makeMove(fromZoneID: ZoneID, toZoneID: ZoneID): void {
     //  If there is an opponent piece
     const opponentPiece: PieceModelType | undefined = this.getPiece(toZoneID);
@@ -59,7 +71,6 @@ export default class PieceModel {
       opponentPiece.zone = '';
       opponentPiece.history.push('');
     }
-    console.log(this.pieces)
   }
 
   /**
@@ -90,9 +101,9 @@ export default class PieceModel {
    * Starts with the moves for a particular piece and runs them against
    * the actual grid from it's starting point.
    *
-   * @param moves
-   * @param color
-   * @param start
+   * @param moves MoveMatrix
+   * @param color PieceColor
+   * @param start Position
    * @returns ZoneID[]
    */
   private processRawMoves(
@@ -174,6 +185,12 @@ export default class PieceModel {
     return newMoves;
   }
 
+  /**
+   * Returns new range data depending on the rule passed in.
+   * 
+   * @param rule Rule | undefined
+   * @returns RuleRange
+   */
   private processRule(rule: Rule | undefined): RuleRange {
     let ruleRange: RuleRange = 0;
     if (rule) {
