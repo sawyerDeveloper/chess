@@ -38,8 +38,8 @@ export default class ChessModel {
     ) {
       return false;
     }
-    this.gridModel.updateGrid(start, end);
     this.pieceModel.makeMove(start, end)
+    this.gridModel.updateGrid(start, end);
     return true;
   }
 }
