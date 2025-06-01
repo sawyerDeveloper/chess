@@ -43,18 +43,18 @@ export default class PieceModel {
   }
 
   /**
-   * Returns the piece data in the PieceModel Pieces array based on ZoneID
-   * 
+   * Returns the piece data in the pieces array based on ZoneID
+   *
    * @param zoneID ZoneID
-   * @returns PieceModelType
+   * @returns PieceModelType | undefined
    */
   getPiece(zoneID: ZoneID): PieceModelType {
     return this.pieces.filter((piece) => piece.zone == zoneID)[0];
   }
 
   /**
-   * Updates the pieces Data Model to accoutn for changes in individual pieces's data.
-   * 
+   * Updates the pieces Data Model to account for changes in individual pieces' data.
+   *
    * @param fromZoneID ZoneID
    * @param toZoneID ZoneID
    */
@@ -65,6 +65,7 @@ export default class PieceModel {
 
     //  Set history
     fromPiece.history.push(toZoneID);
+    fromPiece.zone = toZoneID;
 
     //  Remove the opponent piece from the board and update history for that piece
     if (opponentPiece) {
@@ -129,10 +130,10 @@ export default class PieceModel {
    * 3. Return all possible legal moves for this piece
    *
    * Legal Moves:
-   * - If the move is to an empty zone, keep it
-   * - If the move is to a zone with an opponent's piece, keep it
+   * - If the move is to an empty zone, keep it *
+   * - If the move is to a zone with an opponent's piece, keep it but block further moves.
    * - If the move is blocked by a piece and this piece is not a knight, toss it and remaining range
-   * - If the move is to a zone that is off the board, toss it
+   * - If the move is to a zone that is off the board, toss it *
    * - If the move is to zone with same color piece, toss it
    *
    * @param direction Direction
@@ -166,28 +167,51 @@ export default class PieceModel {
         nextPosition.y -= stepValue.y;
       }
       //  ID a zone to move to
-      const move = (letters[nextPosition.x] + nextPosition.y) as ZoneID;
+      const zoneID = (letters[nextPosition.x] + nextPosition.y) as ZoneID;
+
+      //  No moving to team's zones
+      if (this.isMovetoSameTeam(color, zoneID)) {
+        break;
+      }
 
       //  No moves off board
       if (nextPosition.y < 1 && nextPosition.y < 8) {
         break;
       }
 
-      //  Must be a legit ZoneID
-      if (!(<ZoneID>move)) {
+      //  Must be a legal ZoneID
+      if (!(<ZoneID>zoneID)) {
         break;
       }
 
       //  Ok it is legal
-      newMoves.push(move);
+      newMoves.push(zoneID);
     }
     //  3.
     return newMoves;
   }
 
   /**
+   * Returns whether or not the move is to a zone that is currently
+   * under a piece of the same color.
+   *
+   * @param color PieceColor
+   * @param zoneID ZoneID
+   * @returns Boolean
+   */
+  private isMovetoSameTeam(color: PieceColor, zoneID: ZoneID): Boolean {
+    let sameTeam = false;
+
+    if (this.getPiece(zoneID)) {
+      sameTeam = color === this.getPiece(zoneID)?.color;
+    }
+
+    return sameTeam;
+  }
+
+  /**
    * Returns new range data depending on the rule passed in.
-   * 
+   *
    * @param rule Rule | undefined
    * @returns RuleRange
    */
@@ -203,7 +227,7 @@ export default class PieceModel {
           break;
         case 'first':
           //  If pawn hasn't moved yet, add more range
-          //  TODO How do we know what the ZoneID or ID of the piec eis here?
+          //  TODO How do we know what the ZoneID or ID of the piece is here?
           ruleRange = rule.range;
         case 'second':
           //  Knight has a second move along a different axis
