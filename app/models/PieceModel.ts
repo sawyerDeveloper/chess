@@ -5,18 +5,8 @@ import {
   Position,
   pieceMovesAtlas,
   MoveMatrix,
-  MoveMatrixCell,
-  Rule,
-  RuleRange,
 } from '../types/PieceTypes';
-import getStepValue, { StepValue } from '../utils/GetStepValue';
-import {
-  Direction,
-  GridCell,
-  letters,
-  GridRange,
-  ZoneID,
-} from '../types/GridTypes';
+import { GridCell, ZoneID } from '../types/GridTypes';
 import PieceController from '../controllers/PieceController';
 
 export default class PieceModel {
