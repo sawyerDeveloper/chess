@@ -5,18 +5,8 @@ import {
   Position,
   pieceMovesAtlas,
   MoveMatrix,
-  MoveMatrixCell,
-  Rule,
-  RuleRange,
 } from '../types/PieceTypes';
-import getStepValue, { StepValue } from '../utils/GetStepValue';
-import {
-  Direction,
-  GridCell,
-  letters,
-  GridRange,
-  ZoneID,
-} from '../types/GridTypes';
+import { GridCell, ZoneID } from '../types/GridTypes';
 import PieceController from '../controllers/PieceController';
 
 export default class PieceModel {
@@ -25,7 +15,7 @@ export default class PieceModel {
   //  Reference to the main grid
   private grid: GridCell[];
 
-  private controller : PieceController
+  private controller: PieceController;
 
   constructor(grid: GridCell[]) {
     console.info('PieceModel');
@@ -43,7 +33,7 @@ export default class PieceModel {
           history: [],
         } as PieceModelType;
       });
-    this.controller = new PieceController(this)
+    this.controller = new PieceController(this);
   }
 
   /**
@@ -65,11 +55,13 @@ export default class PieceModel {
   makeMove(fromZoneID: ZoneID, toZoneID: ZoneID): void {
     //  If there is an opponent piece
     const opponentPiece: PieceModelType | undefined = this.getPiece(toZoneID);
-    const fromPiece: PieceModelType = this.getPiece(fromZoneID);
+    const fromPiece: PieceModelType | undefined = this.getPiece(fromZoneID);
 
     //  Set history
-    fromPiece.history.push(toZoneID);
-    fromPiece.zone = toZoneID;
+    if (fromPiece) {
+      fromPiece.history.push(toZoneID);
+      fromPiece.zone = toZoneID;
+    }
 
     //  Remove the opponent piece from the board and update history for that piece
     if (opponentPiece) {
@@ -97,9 +89,12 @@ export default class PieceModel {
     //  2.
     const rawMoves = pieceMovesAtlas[type] as MoveMatrix;
     //  3.
-    const newMoves: ZoneID[] = this.controller.processRawMoves(rawMoves, color, start);
+    const newMoves: ZoneID[] = this.controller.processRawMoves(
+      rawMoves,
+      color,
+      start
+    );
     //  4.
     return newMoves;
   }
-
 }
