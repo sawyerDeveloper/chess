@@ -13,6 +13,7 @@ import {
   Position,
   Rule,
   RuleRange,
+  RuleType,
 } from '../types/PieceTypes';
 import getStepValue, { StepValue } from '../utils/GetStepValue';
 
@@ -145,17 +146,17 @@ export default class PieceController {
     let ruleRange: RuleRange = 0;
     if (rule) {
       switch (rule.type) {
-        case 'attack':
+        case RuleType.ATTACK:
           //  Only pawns have an attack that is different
           break;
-        case 'castle':
+        case RuleType.CASTLE:
           //  Check if each piece involved in the castle have moved yet
           break;
-        case 'first':
+        case RuleType.FIRST:
           //  If pawn hasn't moved yet, add more range
           //  TODO How do we know what the ZoneID or ID of the piece is here?
           ruleRange = rule.range;
-        case 'second':
+        case RuleType.SECOND:
           //  Knight has a second move along a different axis
           break;
       }
