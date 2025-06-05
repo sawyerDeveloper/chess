@@ -4,9 +4,13 @@ export const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
 export type GridRange = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
+export type GridRow = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+export type GridColumn = GridRow;
+
 export type GridCell = {
-  x: number;
-  y: number;
+  x: GridRange;
+  y: GridRange;
   zone: ZoneID;
   piece: Piece;
 };

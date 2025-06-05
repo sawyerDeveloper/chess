@@ -80,7 +80,7 @@ export default class PieceController {
     fullRange = ruleRange ? ruleRange : fullRange;
 
     //  2.
-    let nextPosition: Position = { x: start.x, y: start.y + 1 };
+    let nextPosition: Position = { x: start.x, y: (start.y + 1) as GridRange };
     let stepValue: StepValue = getStepValue(direction);
     let newMoves: Zones = [];
 

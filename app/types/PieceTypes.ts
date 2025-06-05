@@ -14,13 +14,15 @@ export enum PieceColor {
   BLACK = 'black',
 }
 
+export type Pieces = PieceModelType[];
+
 export type PieceModelType = {
   id: number;
   zone: ZoneID;
   type: PieceType;
   color: PieceColor;
-  x: number;
-  y: number;
+  x: GridRange;
+  y: GridRange;
   history: Zones;
 };
 
@@ -30,8 +32,8 @@ export type Piece = {
 };
 
 export type Position = {
-  x: number;
-  y: number;
+  x: GridRange;
+  y: GridRange;
 };
 
 type RuleType = 'castle' | 'attack' | 'first' | 'second';

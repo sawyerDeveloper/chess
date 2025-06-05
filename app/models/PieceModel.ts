@@ -5,13 +5,14 @@ import {
   Position,
   pieceMovesAtlas,
   MoveMatrix,
+  Pieces,
 } from '../types/PieceTypes';
 import { Grid, ZoneID, Zones } from '../types/GridTypes';
 import PieceController from '../controllers/PieceController';
 
 export default class PieceModel {
   //  Track individual pieces movements
-  private pieces: PieceModelType[] = [];
+  private pieces: Pieces = [];
   //  Reference to the main grid
   private grid: Grid;
 
@@ -79,10 +80,10 @@ export default class PieceModel {
    * 3. Return remaining moves.
    *
    * @param type PieceType
-   * @param zone string
+   * @param zone ZoneID
    * @returns Zones
    */
-  getMoves(type: PieceType, color: PieceColor, zone: string): Zones {
+  getMoves(type: PieceType, color: PieceColor, zone: ZoneID): Zones {
     //  1.
     const cell = this.grid.filter((cell) => cell.zone == zone)[0];
     const start: Position = { x: cell.x, y: cell.y };
