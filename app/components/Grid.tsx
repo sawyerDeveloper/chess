@@ -4,22 +4,22 @@ import ZoneContext from './context/ZoneContext';
 import Row from './ui/Row';
 import Column from './ui/Column';
 import LandingZone, { LandingZoneColors } from './LandingZone';
-import { GridCell, letters } from '../types/GridTypes';
+import { GridCell, GridColumn, GridRow, letters } from '../types/GridTypes';
 
 export default function Grid() {
   const { model } = useContext(ZoneContext);
 
-  const ifZone = (row: number, column: number): GridCell | undefined => {
+  const ifZone = (row: GridRow, column: GridColumn): GridCell | undefined => {
     const zone = model.getGrid().find((zone) => {
       return zone.zone === letters[column - 1] + row;
     });
     return zone;
   };
 
-  const layoutZones = (column: number) => {
+  const layoutZones = (column: GridColumn) => {
     let views = [];
-    for (let row: number = 1; row < 9; row++) {
-      const zone = ifZone(row, column);
+    for (let row: GridRow = 1; row < 9; row++) {
+      const zone = ifZone(row as GridRow, column);
       if (zone) {
         views.push(
           <LandingZone
@@ -39,10 +39,10 @@ export default function Grid() {
 
   const layoutGrid = () => {
     let views = [];
-    for (var column: number = 1; column < 9; column++) {
+    for (var column: GridColumn = 1; column < 9; column++) {
       views.push(
         <Row key={column + column}>
-          <Column>{layoutZones(column)}</Column>
+          <Column>{layoutZones(column as GridColumn)}</Column>
         </Row>
       );
     }

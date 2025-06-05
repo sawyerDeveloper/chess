@@ -1,4 +1,4 @@
-import { GridRange, ZoneID } from './GridTypes';
+import { GridRange, ZoneID, Zones } from './GridTypes';
 
 export enum PieceType {
   KING = 'king',
@@ -14,14 +14,16 @@ export enum PieceColor {
   BLACK = 'black',
 }
 
+export type Pieces = PieceModelType[];
+
 export type PieceModelType = {
   id: number;
   zone: ZoneID;
   type: PieceType;
   color: PieceColor;
-  x: number;
-  y: number;
-  history: ZoneID[];
+  x: GridRange;
+  y: GridRange;
+  history: Zones;
 };
 
 export type Piece = {
@@ -30,13 +32,13 @@ export type Piece = {
 };
 
 export type Position = {
-  x: number;
-  y: number;
+  x: GridRange;
+  y: GridRange;
 };
 
 type RuleType = 'castle' | 'attack' | 'first' | 'second';
 
-export type RuleRange = 1 | 2 | 0
+export type RuleRange = 1 | 2 | 0;
 
 export type Rule = { type: RuleType; range: RuleRange };
 

@@ -1,11 +1,20 @@
-import { GridCell, ZoneID } from '../types/GridTypes';
+import { Grid, GridCell, ZoneID, Zones } from '../types/GridTypes';
 import GridModel from './GridModel';
 import PieceModel from './PieceModel';
 
+/**
+ * Handles the overall DataModel for the game
+ *
+ */
 export default class ChessModel {
+  //  Reference to model that is scoped only to the cartesian/algebraic grid
   private gridModel: GridModel;
+  //  Reference to model that is scoped onlyo to pieces
   private pieceModel: PieceModel;
 
+  /**
+   * Constructor. Initilizes GridModel and then PieceModel.
+   */
   constructor() {
     console.info('ChessModel');
     this.gridModel = new GridModel();
@@ -13,17 +22,33 @@ export default class ChessModel {
     this.pieceModel = new PieceModel(this.gridModel.getGrid());
   }
 
-  public getGrid(): GridCell[] {
+  /**
+   * Returns an array of GridCells that represent every square on the board.
+   *
+   * @returns Grid
+   */
+  public getGrid(): Grid {
     return this.gridModel.getGrid();
   }
 
+  /**
+   * Returns a GridCell out of the grid based on a ZoneID passed in.
+   *
+   * @param zone ZoneID
+   * @returns GridCell
+   */
   public getZone(zone: ZoneID): GridCell {
     return this.gridModel.getZone(zone);
   }
 
-  public getAvailableZones(zone: ZoneID): ZoneID[] {
+  /**
+   *
+   * @param zone ZoneID
+   * @returns Zones
+   */
+  public getAvailableZones(zone: ZoneID): Zones {
     const { type, color } = this.getZone(zone).piece;
-    let newMoves: ZoneID[] = [];
+    let newMoves: Zones = [];
     if (type && color) {
       const possibleMoves = this.pieceModel.getMoves(type, color, zone);
       newMoves = possibleMoves;
@@ -38,7 +63,7 @@ export default class ChessModel {
     ) {
       return false;
     }
-    this.pieceModel.makeMove(start, end)
+    this.pieceModel.makeMove(start, end);
     this.gridModel.updateGrid(start, end);
     return true;
   }
