@@ -15,6 +15,7 @@ A basic Chess game that can be played solo or against another human user.
 - Same color pieces block potential moves.
 
 **Upcoming Features:**
+- Opponent pieces block movement but allow attack
 - Knight Movement
 - Player/Opponent
 - Human vs Computer
