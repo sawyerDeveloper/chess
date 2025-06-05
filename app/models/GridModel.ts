@@ -1,14 +1,24 @@
 import { Piece } from '../types/PieceTypes';
-import { GridCell, letters, ZoneID } from '../types/GridTypes';
+import { Grid, GridCell, letters, ZoneID } from '../types/GridTypes';
 import STARTING_ARRAY from './data/startingArray';
+
+/**
+ * Handles the DataModel for the grid of the game.
+ *
+ */
 export default class GridModel {
-  private grid: GridCell[] = [];
+  //  Array of GridCells representing each square of the board.
+  private grid: Grid = [];
 
   constructor() {
     console.info('GridModel');
   }
 
-  public initGrid(startingArray: GridCell[] = []) {
+  /**
+   *
+   * @param startingArray
+   */
+  public initGrid(startingArray: Grid = []) {
     const pieceArray =
       startingArray.length > 0 ? startingArray : STARTING_ARRAY;
     for (let file: number = 1; file < letters.length + 1; file++) {
@@ -39,7 +49,7 @@ export default class GridModel {
     }
   }
 
-  public getGrid(): GridCell[] {
+  public getGrid(): Grid {
     return this.grid;
   }
 

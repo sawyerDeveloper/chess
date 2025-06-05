@@ -6,18 +6,18 @@ import {
   pieceMovesAtlas,
   MoveMatrix,
 } from '../types/PieceTypes';
-import { GridCell, ZoneID } from '../types/GridTypes';
+import { Grid, ZoneID, Zones } from '../types/GridTypes';
 import PieceController from '../controllers/PieceController';
 
 export default class PieceModel {
   //  Track individual pieces movements
   private pieces: PieceModelType[] = [];
   //  Reference to the main grid
-  private grid: GridCell[];
+  private grid: Grid;
 
   private controller: PieceController;
 
-  constructor(grid: GridCell[]) {
+  constructor(grid: Grid) {
     console.info('PieceModel');
     this.grid = grid;
     this.pieces = grid
@@ -80,16 +80,16 @@ export default class PieceModel {
    *
    * @param type PieceType
    * @param zone string
-   * @returns ZoneID[]
+   * @returns Zones
    */
-  getMoves(type: PieceType, color: PieceColor, zone: string): ZoneID[] {
+  getMoves(type: PieceType, color: PieceColor, zone: string): Zones {
     //  1.
     const cell = this.grid.filter((cell) => cell.zone == zone)[0];
     const start: Position = { x: cell.x, y: cell.y };
     //  2.
     const rawMoves = pieceMovesAtlas[type] as MoveMatrix;
     //  3.
-    const newMoves: ZoneID[] = this.controller.processRawMoves(
+    const newMoves: Zones = this.controller.processRawMoves(
       rawMoves,
       color,
       start

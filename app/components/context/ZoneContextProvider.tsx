@@ -1,7 +1,7 @@
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import ZoneContext from './ZoneContext';
 import ChessModel from '@/app/models/ChessModel';
-import { ZoneID } from '@/app/types/GridTypes';
+import { ZoneID, Zones } from '@/app/types/GridTypes';
 
 interface ZoneContextProviderProps {
   children: ReactNode | ReactNode[];
@@ -10,7 +10,7 @@ interface ZoneContextProviderProps {
 
 const ZoneContextProvider = ({ children, model }: ZoneContextProviderProps) => {
   const [pressedZone, setPressedZone] = useState<ZoneID>('');
-  const [availableZones, setAvailableZones] = useState<ZoneID[]>([]);
+  const [availableZones, setAvailableZones] = useState<Zones>([]);
 
   //  TODO implement a decoupled state approach to this method and its passing
   const onPress = useCallback(

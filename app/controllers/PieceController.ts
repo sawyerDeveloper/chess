@@ -1,11 +1,26 @@
 import PieceModel from '../models/PieceModel';
-import { Direction, GridRange, letters, ZoneID } from '../types/GridTypes';
-import { MoveMatrix, MoveMatrixCell, PieceColor, Position, Rule, RuleRange } from '../types/PieceTypes';
+import {
+  Direction,
+  GridRange,
+  letters,
+  ZoneID,
+  Zones,
+} from '../types/GridTypes';
+import {
+  MoveMatrix,
+  MoveMatrixCell,
+  PieceColor,
+  Position,
+  Rule,
+  RuleRange,
+} from '../types/PieceTypes';
 import getStepValue, { StepValue } from '../utils/GetStepValue';
 
 export default class PieceController {
   private model: PieceModel;
+
   constructor(model: PieceModel) {
+    console.info('PieceController');
     this.model = model;
   }
 
@@ -16,13 +31,13 @@ export default class PieceController {
    * @param moves MoveMatrix
    * @param color PieceColor
    * @param start Position
-   * @returns ZoneID[]
+   * @returns Zones
    */
   processRawMoves(
     moves: MoveMatrix,
     color: PieceColor,
     start: Position
-  ): ZoneID[] {
+  ): Zones {
     //  Go through all directions of moves for a piece by iterating
     //  over the moves listed in a RawMoveMatrix(up, down, etc)
     const allDirections = Object.keys(moves).map((direction) => {
@@ -51,14 +66,14 @@ export default class PieceController {
    * @param moves MoveMatrixCell
    * @param color PieceColor
    * @param start Position
-   * @returns ZoneID[]
+   * @returns Zones
    */
   private processMoveDirection(
     direction: Direction,
     moves: MoveMatrixCell,
     color: PieceColor,
     start: Position
-  ): ZoneID[] {
+  ): Zones {
     //  1.
     let fullRange: GridRange = moves[0];
     let ruleRange: RuleRange = this.processRule(moves[1]);
@@ -67,7 +82,7 @@ export default class PieceController {
     //  2.
     let nextPosition: Position = { x: start.x, y: start.y + 1 };
     let stepValue: StepValue = getStepValue(direction);
-    let newMoves: ZoneID[] = [];
+    let newMoves: Zones = [];
 
     for (let i = 0; i < fullRange; i++) {
       if (color === 'white') {

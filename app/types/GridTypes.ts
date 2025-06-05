@@ -11,6 +11,8 @@ export type GridCell = {
   piece: Piece;
 };
 
+export type Grid = GridCell[];
+
 export type Direction =
   | 'up'
   | 'down'
@@ -20,6 +22,8 @@ export type Direction =
   | 'upRight'
   | 'downLeft'
   | 'downRight';
+
+export type Zones = ZoneID[];
 
 export type ZoneID =
   | 'a1'
