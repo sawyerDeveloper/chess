@@ -26,7 +26,7 @@ const ZoneContextProvider = ({ children, model }: ZoneContextProviderProps) => {
         setPressedZone(zone);
       } else {
         setAvailableZones([]);
-        model.validateMove(pressedZone!, zone);
+        model.movePiece(pressedZone!, zone);
         setPressedZone('');
       }
     },
