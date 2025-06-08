@@ -13,7 +13,7 @@ export default class ChessModel {
   private pieceModel: PieceModel;
 
   /**
-   * Constructor. Initilizes GridModel and then PieceModel.
+   * Constructor. Initilizes GridModel and PieceModel.
    */
   constructor() {
     console.info('ChessModel');
@@ -56,7 +56,14 @@ export default class ChessModel {
     return newMoves;
   }
 
-  public validateMove(start: ZoneID, end: ZoneID): Boolean {
+  /**
+   * Moves a piece from one zone to another
+   * 
+   * @param start ZoneID
+   * @param end ZoneID
+   * @returns Boolean
+   */
+  public movePiece(start: ZoneID, end: ZoneID): Boolean {
     if (
       this.gridModel.getZone(end)?.piece.color ===
       this.gridModel.getZone(start)?.piece.color
