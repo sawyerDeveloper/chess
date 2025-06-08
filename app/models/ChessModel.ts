@@ -1,4 +1,4 @@
-import { Grid, GridCell, ZoneID, Zones } from '../types/GridTypes';
+import { GridCell, GridCellArray, ZoneID, Zones } from '../types/GridTypes';
 import GridModel from './GridModel';
 import PieceModel from './PieceModel';
 
@@ -25,9 +25,9 @@ export default class ChessModel {
   /**
    * Returns an array of GridCells that represent every square on the board.
    *
-   * @returns Grid
+   * @returns GridCellArray
    */
-  public getGrid(): Grid {
+  public getGrid(): GridCellArray {
     return this.gridModel.getGrid();
   }
 
@@ -58,7 +58,7 @@ export default class ChessModel {
 
   /**
    * Moves a piece from one zone to another
-   * 
+   *
    * @param start ZoneID
    * @param end ZoneID
    * @returns Boolean
