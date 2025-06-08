@@ -1,6 +1,6 @@
 import { Piece } from '../types/PieceTypes';
 import {
-  Grid,
+  GridCellArray,
   GridCell,
   GridColumn,
   GridRange,
@@ -16,7 +16,7 @@ import STARTING_ARRAY from './data/startingArray';
  */
 export default class GridModel {
   //  Array of GridCells representing each square of the board.
-  private grid: Grid = [];
+  private grid: GridCellArray = [];
 
   constructor() {
     console.info('GridModel');
@@ -26,7 +26,7 @@ export default class GridModel {
    *
    * @param startingArray
    */
-  public initGrid(startingArray: Grid = []) {
+  public initGrid(startingArray: GridCellArray = []) {
     const pieceArray =
       startingArray.length > 0 ? startingArray : STARTING_ARRAY;
     for (let file: GridRow = 1; file < letters.length + 1; file++) {
@@ -57,12 +57,11 @@ export default class GridModel {
     }
   }
 
-  public getGrid(): Grid {
+  public getGrid(): GridCellArray {
     return this.grid;
   }
 
   public getZone(zoneId: ZoneID): GridCell {
     return this.grid.filter((zone) => zone.zone === zoneId)[0];
   }
-
 }

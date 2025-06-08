@@ -7,18 +7,18 @@ import {
   MoveMatrix,
   Pieces,
 } from '../types/PieceTypes';
-import { Grid, ZoneID, Zones } from '../types/GridTypes';
+import { GridCellArray, ZoneID, Zones } from '../types/GridTypes';
 import PieceController from '../controllers/PieceController';
 
 export default class PieceModel {
   //  Track individual pieces movements
   private pieces: Pieces = [];
   //  Reference to the main grid
-  private grid: Grid;
+  private grid: GridCellArray;
 
   private controller: PieceController;
 
-  constructor(grid: Grid) {
+  constructor(grid: GridCellArray) {
     console.info('PieceModel');
     this.grid = grid;
     this.pieces = grid

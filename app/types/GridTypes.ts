@@ -15,7 +15,7 @@ export type GridCell = {
   piece: Piece;
 };
 
-export type Grid = GridCell[];
+export type GridCellArray = GridCell[];
 
 export type Direction =
   | 'up'
