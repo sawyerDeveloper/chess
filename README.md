@@ -33,7 +33,7 @@ No generative search(llm) is used to develop this.
 Coding this from scratch:  
 - The joy of seeing it come to life is palpable and stays with me.
 - The wisdom I've gained so far is priceless.
-- I can explain the story of each commit and why I made those choices.
+- I can explain the story of each commit and why I made those decisions.
 
 
 ## Get started
