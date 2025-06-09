@@ -10,6 +10,7 @@ import {
   MoveMatrix,
   MoveMatrixCell,
   PieceColor,
+  PieceModelType,
   Position,
   Rule,
   RuleRange,
@@ -76,8 +77,10 @@ export default class PieceController {
     start: Position
   ): Zones {
     //  1.
+    const rule: Rule | undefined = moves[1];
     let fullRange: GridRange = moves[0];
-    let ruleRange: RuleRange = this.processRule(moves[1]);
+    const startingPiece: PieceModelType = this.model.getPieceByPosition(start);
+    let ruleRange: RuleRange = this.processRule(rule, startingPiece.zone);
     fullRange = ruleRange ? ruleRange : fullRange;
 
     //  2.
@@ -142,7 +145,7 @@ export default class PieceController {
    * @param rule Rule | undefined
    * @returns RuleRange
    */
-  private processRule(rule: Rule | undefined): RuleRange {
+  private processRule(rule?: Rule, zoneID?: ZoneID): RuleRange {
     let ruleRange: RuleRange = 0;
     if (rule) {
       switch (rule.type) {
@@ -153,9 +156,13 @@ export default class PieceController {
           //  Check if each piece involved in the castle have moved yet
           break;
         case RuleType.FIRST:
-          //  If pawn hasn't moved yet, add more range
-          //  TODO How do we know what the ZoneID or ID of the piece is here?
-          ruleRange = rule.range;
+          //  If pawn hasn't moved yet, range is 2
+          //  After first move, range is back to 1
+          if (zoneID && this.model.getPiece(zoneID)) {
+            if (!this.model.getPiece(zoneID).history.length) {
+              ruleRange = rule.range;
+            }
+          }
         case RuleType.SECOND:
           //  Knight has a second move along a different axis
           break;
