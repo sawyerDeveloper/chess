@@ -48,6 +48,18 @@ export default class PieceModel {
   }
 
   /**
+   * Returns the piece data in the pieces array based on position
+   *
+   * @param position Position
+   * @returns PieceModelType | undefined
+   */
+  getPieceByPosition(position: Position): PieceModelType {
+    return this.pieces.filter(
+      (piece) => piece.x == position.x && piece.y == position.y
+    )[0];
+  }
+
+  /**
    * Updates the pieces Data Model to account for changes in individual pieces' data.
    *
    * @param fromZoneID ZoneID
@@ -60,6 +72,9 @@ export default class PieceModel {
 
     //  Set history
     if (fromPiece) {
+      const cell = this.grid.filter((cell) => cell.zone == toZoneID)[0];
+      fromPiece.x = cell.x;
+      fromPiece.y = cell.y;
       fromPiece.history.push(toZoneID);
       fromPiece.zone = toZoneID;
     }
