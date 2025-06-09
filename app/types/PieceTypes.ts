@@ -27,8 +27,8 @@ export type PieceModelType = {
 };
 
 export type Piece = {
-  type: PieceType | null | undefined;
-  color: PieceColor | null | undefined;
+  type: PieceType;
+  color: PieceColor;
 };
 
 export type Position = {
@@ -45,7 +45,7 @@ export enum RuleType {
 
 export type RuleRange = 1 | 2 | 0;
 
-export type Rule = { type: RuleType; range: RuleRange };
+export type Rule = { type: RuleType; range: RuleRange } | undefined;
 
 export type MoveMatrixCell = [GridRange] | [GridRange, Rule];
 

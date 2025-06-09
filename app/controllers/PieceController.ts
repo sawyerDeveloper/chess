@@ -77,7 +77,7 @@ export default class PieceController {
     start: Position
   ): Zones {
     //  1.
-    const rule: Rule | undefined = moves[1];
+    const rule: Rule = moves[1];
     let fullRange: GridRange = moves[0];
     const startingPiece: PieceModelType = this.model.getPieceByPosition(start);
     let ruleRange: RuleRange = this.processRule(rule, startingPiece.zone);
@@ -142,10 +142,10 @@ export default class PieceController {
   /**
    * Returns new range data depending on the rule passed in.
    *
-   * @param rule Rule | undefined
+   * @param rule Rule
    * @returns RuleRange
    */
-  private processRule(rule?: Rule, zoneID?: ZoneID): RuleRange {
+  private processRule(rule: Rule, zoneID?: ZoneID): RuleRange {
     let ruleRange: RuleRange = 0;
     if (rule) {
       switch (rule.type) {
