@@ -6,7 +6,7 @@ A chess game built in Expo for Web, iOS, and Android using TypeScript.
 
 # Roadmap
 
-A basic Chess game that can be played solo or against another human user. 
+End Goal: A basic Chess game that can be played solo or against another human user. 
 
 **Current Features:**
 - Web
