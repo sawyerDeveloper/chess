@@ -22,7 +22,8 @@ End Goal: A basic Chess game that can be played solo or against another human us
 - iOS
 - Android
 - TV
-- Human vs Human
+- Human vs Human Network
+- Human vs Human Local(pass back and virtual board)
 
 # Philosophy
 
