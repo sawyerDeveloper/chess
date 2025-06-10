@@ -27,8 +27,8 @@ export type PieceModelType = {
 };
 
 export type Piece = {
-  type: PieceType;
-  color: PieceColor;
+  type: PieceType | null;
+  color: PieceColor | null;
 };
 
 export type Position = {
