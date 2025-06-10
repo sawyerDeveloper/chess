@@ -42,22 +42,28 @@ export default class ChessModel {
   }
 
   /**
+   * Returns an array of ZoneIDs that represent all of the
+   * possible moves a piece can make.
    *
-   * @param zone ZoneID
+   * @param zoneID ZoneID
    * @returns Zones
    */
-  public getAvailableZones(zone: ZoneID): Zones {
-    const { type, color } = this.getZone(zone).piece;
+  public getAvailableZones(zoneID: ZoneID): Zones {
+    const zone = this.getZone(zoneID);
     let newMoves: Zones = [];
-    if (type && color) {
-      const possibleMoves = this.pieceModel.getMoves(type, color, zone);
-      newMoves = possibleMoves;
+    if (zone) {
+      const { type, color } = this.getZone(zoneID).piece;
+      if (type && color) {
+        const possibleMoves = this.pieceModel.getMoves(type, color, zoneID);
+        newMoves = possibleMoves;
+      }
     }
     return newMoves;
   }
 
   /**
    * Moves a piece from one zone to another
+   * Checks to see if the move is legal first
    *
    * @param start ZoneID
    * @param end ZoneID
