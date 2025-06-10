@@ -64,10 +64,7 @@ export default class ChessModel {
    * @returns Boolean
    */
   public movePiece(start: ZoneID, end: ZoneID): Boolean {
-    if (
-      this.gridModel.getZone(end)?.piece.color ===
-      this.gridModel.getZone(start)?.piece.color
-    ) {
+    if (!this.getAvailableZones(start).find((zone) => zone === end)) {
       return false;
     }
     this.pieceModel.makeMove(start, end);
