@@ -113,4 +113,22 @@ export default class PieceModel {
     //  4.
     return newMoves;
   }
+
+  /**
+   * Returns whether or not the move is to a zone that is currently
+   * under a piece of the same color.
+   *
+   * @param color PieceColor
+   * @param zoneID ZoneID
+   * @returns Boolean
+   */
+  isMovetoSameTeam(color: PieceColor, zoneID: ZoneID): Boolean {
+    let sameTeam = false;
+
+    if (this.getPiece(zoneID)) {
+      sameTeam = color === this.getPiece(zoneID)?.color;
+    }
+
+    return sameTeam;
+  }
 }

@@ -100,7 +100,7 @@ export default class PieceController {
       const zoneID = (letters[nextPosition.x] + nextPosition.y) as ZoneID;
 
       //  No moving to team's zones
-      if (this.isMovetoSameTeam(color, zoneID)) {
+      if (this.model.isMovetoSameTeam(color, zoneID)) {
         break;
       }
 
@@ -114,29 +114,13 @@ export default class PieceController {
         break;
       }
 
+      console.log(this.model.isMovetoSameTeam(color, zoneID));
+
       //  Ok it is legal
       newMoves.push(zoneID);
     }
     //  3.
     return newMoves;
-  }
-
-  /**
-   * Returns whether or not the move is to a zone that is currently
-   * under a piece of the same color.
-   *
-   * @param color PieceColor
-   * @param zoneID ZoneID
-   * @returns Boolean
-   */
-  private isMovetoSameTeam(color: PieceColor, zoneID: ZoneID): Boolean {
-    let sameTeam = false;
-
-    if (this.model.getPiece(zoneID)) {
-      sameTeam = color === this.model.getPiece(zoneID)?.color;
-    }
-
-    return sameTeam;
   }
 
   /**
