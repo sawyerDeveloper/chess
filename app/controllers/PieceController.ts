@@ -87,6 +87,7 @@ export default class PieceController {
     let nextPosition: Position = { x: start.x, y: (start.y + 1) as GridRange };
     let stepValue: StepValue = getStepValue(direction);
     let newMoves: Zones = [];
+    let attackMoves: Zones = [];
 
     for (let i = 0; i < fullRange; i++) {
       if (color === 'white') {
@@ -99,11 +100,6 @@ export default class PieceController {
       //  ID a zone to move to
       const zoneID = (letters[nextPosition.x] + nextPosition.y) as ZoneID;
 
-      //  No moving to team's zones
-      if (this.model.isMovetoSameTeam(color, zoneID)) {
-        break;
-      }
-
       //  No moves off board
       if (nextPosition.y < 1 && nextPosition.y < 8) {
         break;
@@ -114,13 +110,22 @@ export default class PieceController {
         break;
       }
 
-      console.log(this.model.isMovetoSameTeam(color, zoneID));
+      //  No moving to team's zones
+      if (this.model.isMovetoSameTeam(color, zoneID) === true) {
+        break;
+      }
+
+      //  Moves that overlap with an opponent should be an attack
+      if (this.model.isMovetoSameTeam(color, zoneID) === false) {
+        attackMoves.push(zoneID);
+        //break;
+      }
 
       //  Ok it is legal
       newMoves.push(zoneID);
     }
     //  3.
-    return newMoves;
+    return newMoves
   }
 
   /**
