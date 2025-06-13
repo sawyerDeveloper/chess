@@ -77,18 +77,25 @@ export default class PieceController {
     start: Position
   ): Zones {
     //  1.
+    //  Grab Rule from Piece Move data
     const rule: Rule = moves[1];
-    let fullRange: GridRange = moves[0];
+    //  Establish which piece is in the position
     const startingPiece: PieceModelType = this.model.getPieceByPosition(start);
+    //  Find out what the difference is in moves depending on rules
     let ruleRange: RuleRange = this.processRule(rule, startingPiece.zone);
-    fullRange = ruleRange ? ruleRange : fullRange;
-
-    //  2.
+    //  Full range if no rules adding range or the new range set by rules
+    let fullRange: GridRange = ruleRange ? ruleRange : moves[0];
+    //  Position where loop iteration starts below
     let nextPosition: Position = { x: start.x, y: (start.y + 1) as GridRange };
+    //  Determines the matrix of movement depending on direction
     let stepValue: StepValue = getStepValue(direction);
+    //  TODO combine these?
+    //  Final collection of possible moves
     let newMoves: Zones = [];
+    //  Attack moves
     let attackMoves: Zones = [];
 
+    //  2.
     for (let i = 0; i < fullRange; i++) {
       if (color === 'white') {
         nextPosition.x += stepValue.x;
@@ -125,7 +132,7 @@ export default class PieceController {
       newMoves.push(zoneID);
     }
     //  3.
-    return newMoves
+    return newMoves;
   }
 
   /**
