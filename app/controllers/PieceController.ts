@@ -77,17 +77,25 @@ export default class PieceController {
     start: Position
   ): Zones {
     //  1.
+    //  Grab Rule from Piece Move data
     const rule: Rule = moves[1];
-    let fullRange: GridRange = moves[0];
+    //  Establish which piece is in the position
     const startingPiece: PieceModelType = this.model.getPieceByPosition(start);
+    //  Find out what the difference is in moves depending on rules
     let ruleRange: RuleRange = this.processRule(rule, startingPiece.zone);
-    fullRange = ruleRange ? ruleRange : fullRange;
+    //  Full range if no rules adding range or the new range set by rules
+    let fullRange: GridRange = ruleRange ? ruleRange : moves[0];
+    //  Position where loop iteration starts below
+    let nextPosition: Position = { x: start.x, y: (start.y + 1) as GridRange };
+    //  Determines the matrix of movement depending on direction
+    let stepValue: StepValue = getStepValue(direction);
+    //  TODO combine these?
+    //  Final collection of possible moves
+    let newMoves: Zones = [];
+    //  Attack moves
+    let attackMoves: Zones = [];
 
     //  2.
-    let nextPosition: Position = { x: start.x, y: (start.y + 1) as GridRange };
-    let stepValue: StepValue = getStepValue(direction);
-    let newMoves: Zones = [];
-
     for (let i = 0; i < fullRange; i++) {
       if (color === 'white') {
         nextPosition.x += stepValue.x;
@@ -99,11 +107,6 @@ export default class PieceController {
       //  ID a zone to move to
       const zoneID = (letters[nextPosition.x] + nextPosition.y) as ZoneID;
 
-      //  No moving to team's zones
-      if (this.isMovetoSameTeam(color, zoneID)) {
-        break;
-      }
-
       //  No moves off board
       if (nextPosition.y < 1 && nextPosition.y < 8) {
         break;
@@ -114,29 +117,22 @@ export default class PieceController {
         break;
       }
 
+      //  No moving to team's zones
+      if (this.model.isMovetoSameTeam(color, zoneID) === true) {
+        break;
+      }
+
+      //  Moves that overlap with an opponent should be an attack
+      if (this.model.isMovetoSameTeam(color, zoneID) === false) {
+        attackMoves.push(zoneID);
+        //break;
+      }
+
       //  Ok it is legal
       newMoves.push(zoneID);
     }
     //  3.
     return newMoves;
-  }
-
-  /**
-   * Returns whether or not the move is to a zone that is currently
-   * under a piece of the same color.
-   *
-   * @param color PieceColor
-   * @param zoneID ZoneID
-   * @returns Boolean
-   */
-  private isMovetoSameTeam(color: PieceColor, zoneID: ZoneID): Boolean {
-    let sameTeam = false;
-
-    if (this.model.getPiece(zoneID)) {
-      sameTeam = color === this.model.getPiece(zoneID)?.color;
-    }
-
-    return sameTeam;
   }
 
   /**
