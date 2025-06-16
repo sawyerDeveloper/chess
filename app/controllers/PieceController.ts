@@ -96,6 +96,7 @@ export default class PieceController {
     let attackMoves: Zones = [];
 
     //  2.
+    let opponentRangeCount = 0
     for (let i = 0; i < fullRange; i++) {
       if (color === 'white') {
         nextPosition.x += stepValue.x;
@@ -124,9 +125,12 @@ export default class PieceController {
 
       //  Moves that overlap with an opponent should be an attack
       if (this.model.isMovetoSameTeam(color, zoneID) === false) {
+        opponentRangeCount++;
         attackMoves.push(zoneID);
         //break;
       }
+
+      if(opponentRangeCount > 1) break;
 
       //  Ok it is legal
       newMoves.push(zoneID);
