@@ -79,7 +79,7 @@ export default class PieceController {
     //  1.
     //  Grab Rule from Piece Move data
     const rule: Rule = moves[1];
-    //  Establish which piece is in the position
+    //  Establish which piece is in the position passed in params
     const startingPiece: PieceModelType = this.model.getPieceByPosition(start);
     //  Find out what the difference is in moves depending on rules
     let ruleRange: RuleRange = this.processRule(rule, startingPiece.zone);
@@ -89,6 +89,8 @@ export default class PieceController {
     let nextPosition: Position = { x: start.x, y: (start.y + 1) as GridRange };
     //  Determines the matrix of movement depending on direction
     let stepValue: StepValue = getStepValue(direction);
+    //  How many steps into opponent pieces
+    let opponentRangeCount = 0;
     //  TODO combine these?
     //  Final collection of possible moves
     let newMoves: Zones = [];
@@ -96,7 +98,6 @@ export default class PieceController {
     let attackMoves: Zones = [];
 
     //  2.
-    let opponentRangeCount = 0
     for (let i = 0; i < fullRange; i++) {
       if (color === 'white') {
         nextPosition.x += stepValue.x;
@@ -127,10 +128,10 @@ export default class PieceController {
       if (this.model.isMovetoSameTeam(color, zoneID) === false) {
         opponentRangeCount++;
         attackMoves.push(zoneID);
-        //break;
       }
 
-      if(opponentRangeCount > 1) break;
+      //  No more moves after an opponent has been identified as attackable
+      if (opponentRangeCount > 1) break;
 
       //  Ok it is legal
       newMoves.push(zoneID);
@@ -143,6 +144,7 @@ export default class PieceController {
    * Returns new range data depending on the rule passed in.
    *
    * @param rule Rule
+   * @param zoneID? ZoneID
    * @returns RuleRange
    */
   private processRule(rule: Rule, zoneID?: ZoneID): RuleRange {
