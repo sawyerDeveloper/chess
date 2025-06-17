@@ -34,6 +34,7 @@ export default class PieceController {
    * @param color PieceColor
    * @param start Position
    * @returns Zones
+   * @access public
    */
   processRawMoves(
     moves: MoveMatrix,
@@ -69,6 +70,7 @@ export default class PieceController {
    * @param color PieceColor
    * @param start Position
    * @returns Zones
+   * @access private
    */
   private processMoveDirection(
     direction: Direction,
@@ -146,6 +148,7 @@ export default class PieceController {
    * @param rule Rule
    * @param zoneID? ZoneID
    * @returns RuleRange
+   * @access private
    */
   private processRule(rule: Rule, zoneID?: ZoneID): RuleRange {
     let ruleRange: RuleRange = 0;

@@ -25,19 +25,21 @@ export default class ChessModel {
   /**
    * Returns an array of GridCells that represent every square on the board.
    *
+   * @access public
    * @returns GridCellArray
    */
-  public getGrid(): GridCellArray {
+  getGrid(): GridCellArray {
     return this.gridModel.getGrid();
   }
 
   /**
    * Returns a GridCell out of the grid based on a ZoneID passed in.
    *
+   * @access public
    * @param zone ZoneID
    * @returns GridCell
    */
-  public getZone(zone: ZoneID): GridCell {
+  getZone(zone: ZoneID): GridCell {
     return this.gridModel.getZone(zone);
   }
 
@@ -45,10 +47,11 @@ export default class ChessModel {
    * Returns an array of ZoneIDs that represent all of the
    * possible moves a piece can make.
    *
+   * @access public
    * @param zoneID ZoneID
    * @returns Zones
    */
-  public getAvailableZones(zoneID: ZoneID): Zones {
+  getAvailableZones(zoneID: ZoneID): Zones {
     const zone = this.getZone(zoneID);
     let newMoves: Zones = [];
     if (zone) {
@@ -65,11 +68,12 @@ export default class ChessModel {
    * Moves a piece from one zone to another
    * Checks to see if the move is legal first
    *
+   * @access public
    * @param start ZoneID
    * @param end ZoneID
    * @returns Boolean
    */
-  public movePiece(start: ZoneID, end: ZoneID): Boolean {
+  movePiece(start: ZoneID, end: ZoneID): Boolean {
     if (!this.getAvailableZones(start).find((zone) => zone === end)) {
       return false;
     }
