@@ -11,6 +11,7 @@ import { Direction } from '../types/GridTypes';
  *
  * @param direction Direction
  * @returns StepValue
+ * @access public
  */
 export default function getStepValue(direction: Direction): StepValue {
   switch (direction) {

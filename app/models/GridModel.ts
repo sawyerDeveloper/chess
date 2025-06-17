@@ -23,10 +23,12 @@ export default class GridModel {
   }
 
   /**
+   * Initializes the grid with a starting array or existing game.
    *
-   * @param startingArray
+   * @param startingArray GridCellArray
+   * @access public
    */
-  public initGrid(startingArray: GridCellArray = []) {
+  initGrid(startingArray: GridCellArray = []) {
     const pieceArray =
       startingArray.length > 0 ? startingArray : STARTING_ARRAY;
     for (let file: GridRow = 1; file < letters.length + 1; file++) {
@@ -45,6 +47,13 @@ export default class GridModel {
     }
   }
 
+  /**
+   * Mutates the grid mased on moves of pieces.
+   *
+   * @param start ZoneID
+   * @param end ZoneID
+   * @access public
+   */
   public updateGrid(start: ZoneID, end: ZoneID) {
     const startZone = this.grid.find((zone) => zone.zone === start);
     const endZone = this.grid.find((zone) => zone.zone === end);
@@ -57,11 +66,24 @@ export default class GridModel {
     }
   }
 
-  public getGrid(): GridCellArray {
+  /**
+   * Returns a reference to the grid of zones(GridCell).
+   *
+   * @returns GridCellArray
+   * @access public
+   */
+  getGrid(): GridCellArray {
     return this.grid;
   }
 
-  public getZone(zoneId: ZoneID): GridCell {
+  /**
+   * Returns a GridCell based on the ZoneID passed in.
+   *
+   * @param zoneId ZoneID
+   * @returns GridCell
+   * @access public
+   */
+  getZone(zoneId: ZoneID): GridCell {
     return this.grid.filter((zone) => zone.zone === zoneId)[0];
   }
 }

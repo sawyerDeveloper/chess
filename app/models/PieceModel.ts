@@ -40,6 +40,7 @@ export default class PieceModel {
   /**
    * Returns the piece data in the pieces array based on ZoneID
    *
+   * @access public
    * @param zoneID ZoneID
    * @returns PieceModelType | undefined
    */
@@ -50,6 +51,7 @@ export default class PieceModel {
   /**
    * Returns the piece data in the pieces array based on position
    *
+   * @access public
    * @param position Position
    * @returns PieceModelType | undefined
    */
@@ -62,6 +64,7 @@ export default class PieceModel {
   /**
    * Updates the pieces Data Model to account for changes in individual pieces' data.
    *
+   * @access public
    * @param fromZoneID ZoneID
    * @param toZoneID ZoneID
    */
@@ -94,6 +97,7 @@ export default class PieceModel {
    * 3. Remove moves that aren't legal.
    * 3. Return remaining moves.
    *
+   * @access public
    * @param type PieceType
    * @param zone ZoneID
    * @returns Zones
@@ -118,6 +122,7 @@ export default class PieceModel {
    * Returns whether or not the move is to a zone that is currently
    * under a piece of the same color or null if it is empty.
    *
+   * @access public
    * @param color PieceColor
    * @param zoneID ZoneID
    * @returns Boolean | null
