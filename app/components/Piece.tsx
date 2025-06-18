@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { memo, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import ZoneContext from './context/ZoneContext';
+import ZoneContext from './context/zone/ZoneContext';
 import { ZoneID } from '../types/GridTypes';
 
 interface PieceProps {

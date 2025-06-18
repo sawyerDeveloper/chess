@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import ZoneContext from './context/ZoneContext';
+import ZoneContext from './context/zone/ZoneContext';
 import Row from './ui/Row';
 import Column from './ui/Column';
 import LandingZone, { LandingZoneColors } from './LandingZone';

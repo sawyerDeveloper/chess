@@ -1,6 +1,6 @@
 import { memo, useContext } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import ZoneContext from './context/ZoneContext';
+import ZoneContext from './context/zone/ZoneContext';
 import PieceView from './Piece';
 import ZoneLabel from './ui/ZoneLabel';
 import { ZoneID } from '../types/GridTypes';
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    borderWidth: 0.5,
+    borderWidth: 0.1,
+    borderColor: 'grey',
   },
 });
 
