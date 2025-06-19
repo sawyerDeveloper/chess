@@ -8,7 +8,7 @@ interface ZoneContextProviderProps {
   model: ChessModel;
 }
 
-const ZoneContextProvider = ({ children, model }: ZoneContextProviderProps) => {
+function ZoneContextProvider({ children, model }: ZoneContextProviderProps) {
   const [pressedZone, setPressedZone] = useState<ZoneID>('');
   const [availableZones, setAvailableZones] = useState<Zones>([]);
 
