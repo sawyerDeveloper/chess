@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { memo, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import ZoneContext from './context/ZoneContext';
+import ZoneContext from './context/zone/ZoneContext';
 import { ZoneID } from '../types/GridTypes';
 
 interface PieceProps {
@@ -9,16 +9,19 @@ interface PieceProps {
 }
 
 function Piece({ zone }: PieceProps) {
-  const { model, getPressedZone } = useContext(ZoneContext);
-  const piece = model.getZone(zone)?.piece;
-  const active = getPressedZone() === zone;
+  const { model, getPressedZone, availableZones } = useContext(ZoneContext);
+  const {color, type} = model.getZone(zone)?.piece;
+  const textShadowColor = color === 'white' ? 'black' : 'white';
+  const opponent = availableZones.includes(zone);
+  const active = getPressedZone() === zone || opponent;
+
   return (
     <View style={styles.container}>
-      {piece.type && (
+      {type && (
         <FontAwesome5
           style={[
             {
-              textShadowColor: piece?.color === 'white' ? 'black' : 'white',
+              textShadowColor: textShadowColor,
               textShadowRadius: active ? 2 : 1,
               textShadowOffset: {
                 width: active ? 1.5 : 1,
@@ -26,9 +29,9 @@ function Piece({ zone }: PieceProps) {
               },
             },
           ]}
-          name={'chess-' + piece?.type}
-          size={active ? 70 : 45}
-          color={piece?.color}
+          name={'chess-' + type}
+          size={active ? 65 : 45}
+          color={color}
         />
       )}
     </View>

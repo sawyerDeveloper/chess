@@ -4,8 +4,7 @@ import { ReactNode } from 'react';
 interface RowProps {
   children: ReactNode | ReactNode[];
 }
-
-export default function Row({ children }: RowProps) {
+const Row = ({ children }: RowProps) => {
   return <View style={styles.container}>{children}</View>;
 }
 
@@ -14,3 +13,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
+
+export default Row

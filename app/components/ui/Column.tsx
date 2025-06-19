@@ -5,7 +5,7 @@ interface ColumnProps {
   children: ReactNode | ReactNode[];
 }
 
-export default function Column({ children }: ColumnProps) {
+const Column = ({ children }: ColumnProps) => {
   return <View style={styles.container}>{children}</View>;
 }
 
@@ -14,3 +14,5 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 });
+
+export default Column
