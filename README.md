@@ -13,9 +13,9 @@ End Goal: A basic Chess game that can be played solo or against another human us
 - Piece movement
 - Pressing a piece shows the Piece's potential moves
 - Same color pieces block potential moves.
+- Opponent pieces block movement but allow attack
 
 **Upcoming Features:**
-- Opponent pieces block movement but allow attack
 - Knight Movement
 - Player/Opponent
 - Human vs Computer
