@@ -51,3 +51,14 @@ Coding this from scratch:
    ```
 
 select w to render on Web
+
+## Branching strategy
+
+Main > Development > Feature
+
+Feature naming convention: 
+
+feat | fix | chore _ ticket? _ description
+
+ex: ```git checkout -b feat_23_Pieces_now_move```
+
