@@ -145,12 +145,12 @@ export default class PieceController {
   /**
    * Returns new range data depending on the rule passed in.
    *
-   * @param rule Rule
+   * @param rule? Rule
    * @param zoneID? ZoneID
    * @returns RuleRange
    * @access private
    */
-  private processRule(rule: Rule, zoneID?: ZoneID): RuleRange {
+  private processRule(rule?: Rule, zoneID?: ZoneID): RuleRange {
     let ruleRange: RuleRange = 0;
     if (rule) {
       switch (rule.type) {
