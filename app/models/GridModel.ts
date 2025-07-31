@@ -11,7 +11,7 @@ import {
 import STARTING_ARRAY from './data/startingArray';
 
 /**
- * Handles the DataModel for the grid of the game.
+ * Handles the data model for the grid of the game.
  *
  */
 export default class GridModel {
@@ -29,14 +29,19 @@ export default class GridModel {
    * @access public
    */
   initGrid(startingArray: GridCellArray = []) {
+    //  Either new grid or passed in from param
     const pieceArray =
       startingArray.length > 0 ? startingArray : STARTING_ARRAY;
+    //  Dual loop through 'file' and 'rank' which are chess for row and column
     for (let file: GridRow = 1; file < letters.length + 1; file++) {
       for (let rank: GridColumn = 1; rank < 9; rank++) {
+        //  Convert loop iteration into ZoneID in chess Standard Notation. A4, B6, etc
         const notation: ZoneID = (letters[file - 1] + rank) as ZoneID;
+        //  Find the piece based on the above Standard Notation
         const piece: Piece = pieceArray.find(
           (piece) => piece.zone === notation
         ) as Piece;
+        //  Push the new piece, zone and coordinates to the grid array
         this.grid.push({
           x: (file - 1) as GridRange,
           y: (rank - 1) as GridRange,
