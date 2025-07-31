@@ -3,7 +3,7 @@ import GridModel from './GridModel';
 import PieceModel from './PieceModel';
 
 /**
- * Handles the overall DataModel for the game
+ * Handles the overall data model for the game
  *
  */
 export default class ChessModel {
